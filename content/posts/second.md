@@ -13,7 +13,6 @@ tags:
   ]
 cover:
   image: "posts/second/cover.png"
-weight: 2
 ---
 
 # Why Docker: Unlocking the Power of Containerization 🚀
@@ -259,4 +258,3 @@ To run all the services at once, use `docker-compose up -d`. This will start all
 These Docker images showcase the incredible range of use cases Docker supports—from contributing to scientific research to running AI models, secure browsing, and developer tools. Each of these is lightweight, easy to run, and can be explored with just a few commands.
 
 Refer to Docker Desktop installation [here](https://www.docker.com/products/docker-desktop/). Stay tuned for more Docker image reviews and tutorials!
-

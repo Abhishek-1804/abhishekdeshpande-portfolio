@@ -2,6 +2,8 @@
 title: "Posts"
 date: 2024-12-04T15:07:38-07:00
 draft: false
+sortBy: date
+sortOrder: desc
 ---
 
 ## 🧠 **Tech Musings**

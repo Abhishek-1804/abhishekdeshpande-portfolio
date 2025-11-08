@@ -4,10 +4,20 @@
     <title>Open-Source Tools on Portfolio</title>
     <link>https://abhishekdp.com/tags/open-source-tools/</link>
     <description>Recent content in Open-Source Tools on Portfolio</description>
-    <generator>Hugo -- 0.149.1</generator>
+    <generator>Hugo -- 0.151.0</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Dec 2024 10:50:03 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 08 Nov 2025 15:23:14 +0530</lastBuildDate>
     <atom:link href="https://abhishekdp.com/tags/open-source-tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Become a Regex expert in 4 minutes</title>
+      <link>https://abhishekdp.com/posts/fourth/</link>
+      <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
+      <guid>https://abhishekdp.com/posts/fourth/</guid>
+      <description>&lt;h2 id=&#34;what-is-regex&#34;&gt;What is Regex&lt;/h2&gt;
+&lt;p&gt;Regular expressions (regex) are patterns used to match and manipulate text. Think of them as a super-powered search function that lets you find specific patterns in strings—like &amp;ldquo;all email addresses,&amp;rdquo; &amp;ldquo;phone numbers,&amp;rdquo; or &amp;ldquo;words starting with &amp;lsquo;cat&amp;rsquo;&amp;quot;—instead of just exact matches. They&amp;rsquo;re everywhere: text editors, command-line tools, programming languages, and even your IDE&amp;rsquo;s search-and-replace feature.&lt;/p&gt;
+&lt;h2 id=&#34;why-should-you-care&#34;&gt;Why Should You Care?&lt;/h2&gt;
+&lt;p&gt;Regex saves you hours of manual text processing. Whether you&amp;rsquo;re parsing log files, validating user input, extracting data from documents, or refactoring code, regex turns 100 lines of string manipulation into a single elegant pattern. It&amp;rsquo;s like having a Swiss Army knife for text—once you learn it, you&amp;rsquo;ll wonder how you ever lived without it.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Exploring Docker: Essential Commands, Best Practices, and Cool Images</title>
       <link>https://abhishekdp.com/posts/second/</link>

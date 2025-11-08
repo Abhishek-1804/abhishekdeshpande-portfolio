@@ -4,10 +4,31 @@
     <title>Tags on Portfolio</title>
     <link>https://abhishekdp.com/tags/</link>
     <description>Recent content in Tags on Portfolio</description>
-    <generator>Hugo -- 0.149.1</generator>
+    <generator>Hugo -- 0.151.0</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 Dec 2024 19:26:41 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 08 Nov 2025 15:23:14 +0530</lastBuildDate>
     <atom:link href="https://abhishekdp.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Developer Tools</title>
+      <link>https://abhishekdp.com/tags/developer-tools/</link>
+      <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
+      <guid>https://abhishekdp.com/tags/developer-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Open-Source Tools</title>
+      <link>https://abhishekdp.com/tags/open-source-tools/</link>
+      <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
+      <guid>https://abhishekdp.com/tags/open-source-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Regex</title>
+      <link>https://abhishekdp.com/tags/regex/</link>
+      <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
+      <guid>https://abhishekdp.com/tags/regex/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Best Practices</title>
       <link>https://abhishekdp.com/tags/best-practices/</link>
@@ -51,13 +72,6 @@
       <description></description>
     </item>
     <item>
-      <title>Developer Tools</title>
-      <link>https://abhishekdp.com/tags/developer-tools/</link>
-      <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/developer-tools/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>DevOps</title>
       <link>https://abhishekdp.com/tags/devops/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
@@ -69,13 +83,6 @@
       <link>https://abhishekdp.com/tags/docker/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
       <guid>https://abhishekdp.com/tags/docker/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Open-Source Tools</title>
-      <link>https://abhishekdp.com/tags/open-source-tools/</link>
-      <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/open-source-tools/</guid>
       <description></description>
     </item>
     <item>

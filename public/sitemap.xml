@@ -2,14 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://abhishekdp.com/posts/first/</loc>
-    <lastmod>2024-12-02T06:14:57-07:00</lastmod>
+    <loc>https://abhishekdp.com/posts/fourth/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
   </url><url>
-    <loc>https://abhishekdp.com/posts/second/</loc>
-    <lastmod>2024-12-22T10:50:03-07:00</lastmod>
+    <loc>https://abhishekdp.com/tags/developer-tools/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
   </url><url>
-    <loc>https://abhishekdp.com/posts/third/</loc>
-    <lastmod>2024-12-30T19:26:41-07:00</lastmod>
+    <loc>https://abhishekdp.com/tags/open-source-tools/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
+  </url><url>
+    <loc>https://abhishekdp.com/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
+  </url><url>
+    <loc>https://abhishekdp.com/tags/regex/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
+  </url><url>
+    <loc>https://abhishekdp.com/tags/</loc>
+    <lastmod>2025-11-08T15:23:14+05:30</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/tags/best-practices/</loc>
     <lastmod>2024-12-30T19:26:41-07:00</lastmod>
@@ -23,19 +32,13 @@
     <loc>https://abhishekdp.com/tags/oops/</loc>
     <lastmod>2024-12-30T19:26:41-07:00</lastmod>
   </url><url>
-    <loc>https://abhishekdp.com/</loc>
-    <lastmod>2024-12-30T19:26:41-07:00</lastmod>
-  </url><url>
     <loc>https://abhishekdp.com/tags/software-development/</loc>
     <lastmod>2024-12-30T19:26:41-07:00</lastmod>
   </url><url>
-    <loc>https://abhishekdp.com/tags/</loc>
+    <loc>https://abhishekdp.com/posts/third/</loc>
     <lastmod>2024-12-30T19:26:41-07:00</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/tags/containers/</loc>
-    <lastmod>2024-12-22T10:50:03-07:00</lastmod>
-  </url><url>
-    <loc>https://abhishekdp.com/tags/developer-tools/</loc>
     <lastmod>2024-12-22T10:50:03-07:00</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/tags/devops/</loc>
@@ -44,7 +47,7 @@
     <loc>https://abhishekdp.com/tags/docker/</loc>
     <lastmod>2024-12-22T10:50:03-07:00</lastmod>
   </url><url>
-    <loc>https://abhishekdp.com/tags/open-source-tools/</loc>
+    <loc>https://abhishekdp.com/posts/second/</loc>
     <lastmod>2024-12-22T10:50:03-07:00</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/tags/virtualization/</loc>
@@ -66,6 +69,9 @@
     <lastmod>2024-12-02T06:14:57-07:00</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/tags/system-configuration/</loc>
+    <lastmod>2024-12-02T06:14:57-07:00</lastmod>
+  </url><url>
+    <loc>https://abhishekdp.com/posts/first/</loc>
     <lastmod>2024-12-02T06:14:57-07:00</lastmod>
   </url><url>
     <loc>https://abhishekdp.com/archives/</loc>

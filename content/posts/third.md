@@ -12,7 +12,6 @@ tags:
   ]
 cover:
   image: "posts/third/cover.jpg"
-weight: 3
 ---
 
 _Object-Oriented Programming (OOP) is a cornerstone of modern software development. To truly grasp advanced principles like SOLID, it’s essential to start with a strong understanding of OOP fundamentals. This post will walk you through OOP concepts and then dive into the SOLID principles with simple examples to solidify your understanding._

@@ -12,7 +12,6 @@ tags:
   ]
 cover:
   image: "posts/first/cover.png"
-weight: 1
 ---
 
 # The Universal Package Manager 🌟
@@ -142,7 +141,6 @@ This creates a basic home.nix template file.
 ```
 
 3. If Zsh is not installed as the default shell, set it up:
-
    - For root users:
 
    ```bash
@@ -198,14 +196,11 @@ Here’s a suggested file structure for managing configurations:
    ```
 
    **Explanation**:
-
    - The above command installs `nix-darwin`, a tool specifically designed for macOS systems that extends Nix capabilities to manage macOS-specific configurations.
    - `nix-darwin` provides the `darwin-rebuild` utility, which allows you to build, switch, and manage your macOS configurations defined in your flake file.
 
 3. Example Workflow with `darwin-rebuild`:
-
    - After setting up your configuration in `flake.nix` and `home.nix`, you can use the following commands to manage your macOS system:
-
      - Build and apply configurations:
 
        ```bash
