@@ -10,9 +10,21 @@ tags:
     "reproducible builds",
     "dev setup",
   ]
-cover:
-  image: "posts/first/cover.png"
 ---
+
+```
+        *           *           *
+      *   *       *   *       *   *
+     *     *     *     *     *     *
+      *   *       *   *       *   *
+        *    ❄    *    ❄    *    ❄
+       *   *       *   *       *   *
+      *     *     *     *     *     *
+       *   *       *   *       *   *
+         *           *           *
+
+    NIX: Reproducible, Declarative, Pure
+```
 
 # The Universal Package Manager 🌟
 

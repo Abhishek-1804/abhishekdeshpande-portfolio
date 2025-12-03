@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Cli Tools on Portfolio</title>
+    <link>http://localhost:1313/tags/cli-tools/</link>
+    <description>Recent content in Cli Tools on Portfolio</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Dec 2025 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/cli-tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>8 Essential CLI Tools Every Developer Should Master</title>
+      <link>http://localhost:1313/posts/essential-cli-tools/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/essential-cli-tools/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    ┌─────────────────────────────────────┐
+    │ user@terminal:~$                    │
+    │ ❯ ffmpeg -i video.mp4 output.webm  │
+    │ ❯ rg &amp;#34;TODO&amp;#34; --type js               │
+    │ ❯ fzf --preview &amp;#39;cat {}&amp;#39;            │
+    │ ❯ lazygit                           │
+    │ ❯ yt-dlp https://youtu.be/...       │
+    │ ❯ tldr docker                       │
+    │ ❯ eza --tree --git                  │
+    │                                     │
+    │ Power at Your Fingertips ⚡         │
+    └─────────────────────────────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;The command line might seem intimidating at first, but mastering the right CLI tools can transform you from a casual terminal user into a productivity powerhouse. These eight tools have become indispensable in modern development workflows, each solving specific problems with elegance and efficiency.&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

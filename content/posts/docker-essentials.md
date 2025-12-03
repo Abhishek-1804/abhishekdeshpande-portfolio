@@ -11,9 +11,21 @@ tags:
     "DevOps",
     "open-source tools",
   ]
-cover:
-  image: "posts/second/cover.png"
 ---
+
+```
+                    ##         .
+              ## ## ##        ==
+           ## ## ## ## ##    ===
+       /"""""""""""""""""\___/ ===
+      {                       /  ===-
+       \______ O           __/
+         \    \         __/
+          \____\_______/
+
+
+       Docker: Build, Ship, Run
+```
 
 # Why Docker: Unlocking the Power of Containerization 🚀
 

@@ -2,68 +2,106 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Portfolio</title>
-    <link>https://abhishekdp.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Nov 2025 15:23:14 +0530</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Dec 2025 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>8 Essential CLI Tools Every Developer Should Master</title>
+      <link>http://localhost:1313/posts/essential-cli-tools/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/essential-cli-tools/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    ┌─────────────────────────────────────┐
+    │ user@terminal:~$                    │
+    │ ❯ ffmpeg -i video.mp4 output.webm  │
+    │ ❯ rg &amp;#34;TODO&amp;#34; --type js               │
+    │ ❯ fzf --preview &amp;#39;cat {}&amp;#39;            │
+    │ ❯ lazygit                           │
+    │ ❯ yt-dlp https://youtu.be/...       │
+    │ ❯ tldr docker                       │
+    │ ❯ eza --tree --git                  │
+    │                                     │
+    │ Power at Your Fingertips ⚡         │
+    └─────────────────────────────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The right CLI tools can transform your terminal from intimidating to indispensable. These eight tools have become essential in modern development workflows, each solving specific problems with speed and elegance. Master them, and watch your productivity soar.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Become a Regex expert in 4 minutes</title>
-      <link>https://abhishekdp.com/posts/fourth/</link>
+      <link>http://localhost:1313/posts/regex-guide/</link>
       <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
-      <guid>https://abhishekdp.com/posts/fourth/</guid>
-      <description>&lt;h2 id=&#34;what-is-regex&#34;&gt;What is Regex&lt;/h2&gt;
-&lt;p&gt;Regular expressions (regex) are patterns used to match and manipulate text. Think of them as a super-powered search function that lets you find specific patterns in strings—like &amp;ldquo;all email addresses,&amp;rdquo; &amp;ldquo;phone numbers,&amp;rdquo; or &amp;ldquo;words starting with &amp;lsquo;cat&amp;rsquo;&amp;quot;—instead of just exact matches. They&amp;rsquo;re everywhere: text editors, command-line tools, programming languages, and even your IDE&amp;rsquo;s search-and-replace feature.&lt;/p&gt;
-&lt;h2 id=&#34;why-should-you-care&#34;&gt;Why Should You Care?&lt;/h2&gt;
-&lt;p&gt;Regex saves you hours of manual text processing. Whether you&amp;rsquo;re parsing log files, validating user input, extracting data from documents, or refactoring code, regex turns 100 lines of string manipulation into a single elegant pattern. It&amp;rsquo;s like having a Swiss Army knife for text—once you learn it, you&amp;rsquo;ll wonder how you ever lived without it.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/regex-guide/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    ┌─────────────────────────────────┐
+    │  /^[A-Z]\w+@\w+\.\w{2,}$/      │
+    │  ┌───┐ ┌──┐ ┌──┐ ┌──┐ ┌────┐  │
+    │  │ ^ │→│\w│→│ @ │→│\.│→│ $  │  │
+    │  └───┘ └──┘ └──┘ └──┘ └────┘  │
+    │                                 │
+    │  Pattern Matching Made Simple  │
+    └─────────────────────────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;what-is-regex&#34;&gt;What is Regex&lt;/h2&gt;
+&lt;p&gt;Regular expressions (regex) are patterns used to match and manipulate text. Think of them as a super-powered search function that lets you find specific patterns in strings—like &amp;ldquo;all email addresses,&amp;rdquo; &amp;ldquo;phone numbers,&amp;rdquo; or &amp;ldquo;words starting with &amp;lsquo;cat&amp;rsquo;&amp;quot;—instead of just exact matches. They&amp;rsquo;re everywhere: text editors, command-line tools, programming languages, and even your IDE&amp;rsquo;s search-and-replace feature.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Solid Understanding of SOLID Principles</title>
-      <link>https://abhishekdp.com/posts/third/</link>
+      <link>http://localhost:1313/posts/solid-principles/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/third/</guid>
-      <description>&lt;p&gt;&lt;em&gt;Object-Oriented Programming (OOP) is a cornerstone of modern software development. To truly grasp advanced principles like SOLID, it’s essential to start with a strong understanding of OOP fundamentals. This post will walk you through OOP concepts and then dive into the SOLID principles with simple examples to solidify your understanding.&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id=&#34;understanding-object-oriented-programming-oop&#34;&gt;Understanding Object-Oriented Programming (OOP)&lt;/h2&gt;
-&lt;p&gt;Object-Oriented Programming revolves around the idea of representing real-world entities as objects. These objects encapsulate both data and behavior, making systems modular, reusable, and easier to maintain. Let’s break down the core principles of OOP.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/solid-principles/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;        ╔═══════════════════════════════╗
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ║  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ║
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ║  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ║
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ╚═══════════════════════════════╝
+
+     Building SOLID Foundations in Code
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Object-Oriented Programming (OOP) is a cornerstone of modern software development. To truly grasp advanced principles like SOLID, it’s essential to start with a strong understanding of OOP fundamentals. This post will walk you through OOP concepts and then dive into the SOLID principles with simple examples to solidify your understanding.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Exploring Docker: Essential Commands, Best Practices, and Cool Images</title>
-      <link>https://abhishekdp.com/posts/second/</link>
+      <link>http://localhost:1313/posts/docker-essentials/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/second/</guid>
-      <description>&lt;h1 id=&#34;why-docker-unlocking-the-power-of-containerization-&#34;&gt;Why Docker: Unlocking the Power of Containerization 🚀&lt;/h1&gt;
-&lt;p&gt;Docker provides a fantastic way to quickly explore and use tools, services, or applications without the hassle of manual installation and dependency management. Here are some cool Docker images you can experiment with, along with instructions to get started.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;basic-docker-commands-to-know&#34;&gt;Basic Docker Commands to Know&lt;/h2&gt;
-&lt;p&gt;Before diving into specific images, here are some essential Docker commands every user should know:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;docker images&lt;/code&gt; – List all images on your system.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker ps -a&lt;/code&gt; – Show all containers, including stopped ones.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker volumes ls&lt;/code&gt; – View all Docker volumes.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker networks ls&lt;/code&gt; – List all Docker networks.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;cool-docker-images-to-try-out&#34;&gt;Cool Docker Images to Try Out&lt;/h2&gt;
-&lt;h3 id=&#34;1-linuxserverfoldingathome&#34;&gt;1. linuxserver/foldingathome&lt;/h3&gt;
-&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
-&lt;p&gt;The Folding@Home project lets you contribute to disease research, including cancer, Alzheimer’s, and COVID-19, by donating unused computational power. This Docker image provides an easy way to join the network. You can set the account name and machine name in the CLI or do it later. If you have an NVIDIA GPU, you can enable it for better performance.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/docker-essentials/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;                    ##         .
+              ## ## ##        ==
+           ## ## ## ## ##    ===
+       /&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;\___/ ===
+      {                       /  ===-
+       \______ O           __/
+         \    \         __/
+          \____\_______/
+
+
+       Docker: Build, Ship, Run
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;why-docker-unlocking-the-power-of-containerization-&#34;&gt;Why Docker: Unlocking the Power of Containerization 🚀&lt;/h1&gt;
+&lt;p&gt;Docker provides a fantastic way to quickly explore and use tools, services, or applications without the hassle of manual installation and dependency management. Here are some cool Docker images you can experiment with, along with instructions to get started.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Why Nix is Awesome!</title>
-      <link>https://abhishekdp.com/posts/first/</link>
+      <link>http://localhost:1313/posts/nix-package-manager/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/first/</guid>
-      <description>&lt;h1 id=&#34;the-universal-package-manager-&#34;&gt;The Universal Package Manager 🌟&lt;/h1&gt;
-&lt;p&gt;Nix is a powerful tool designed to revolutionize package management and system configuration. With its declarative approach, robust reproducibility, and ability to handle complex dependency trees, Nix has gained a reputation as one of the most innovative tools for developers, DevOps professionals, and software enthusiasts alike.&lt;/p&gt;
-&lt;h2 id=&#34;introduction-to-nix&#34;&gt;Introduction to Nix&lt;/h2&gt;
-&lt;p&gt;Nix is an advanced package manager that takes a &lt;strong&gt;declarative and reproducible approach&lt;/strong&gt; to managing software. Unlike traditional package managers, Nix ensures that your system remains consistent and isolated, making it easier to reproduce builds across different environments. However, Nix comes with a steep learning curve, requiring time and effort to fully grasp its concepts and capabilities, particularly for those new to declarative configurations and functional programming paradigms.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/nix-package-manager/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;        *           *           *
+      *   *       *   *       *   *
+     *     *     *     *     *     *
+      *   *       *   *       *   *
+        *    ❄    *    ❄    *    ❄
+       *   *       *   *       *   *
+      *     *     *     *     *     *
+       *   *       *   *       *   *
+         *           *           *
+
+    NIX: Reproducible, Declarative, Pure
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;the-universal-package-manager-&#34;&gt;The Universal Package Manager 🌟&lt;/h1&gt;
+&lt;p&gt;Nix is a powerful tool designed to revolutionize package management and system configuration. With its declarative approach, robust reproducibility, and ability to handle complex dependency trees, Nix has gained a reputation as one of the most innovative tools for developers, DevOps professionals, and software enthusiasts alike.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>https://abhishekdp.com/portfolio/</link>
+      <link>http://localhost:1313/portfolio/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/portfolio/</guid>
+      <guid>http://localhost:1313/portfolio/</guid>
       <description>&lt;h1 id=&#34;hi-im-abhishek-deshpande-&#34;&gt;Hi, I&amp;rsquo;m Abhishek Deshpande 👋&lt;/h1&gt;
 &lt;p&gt;I’m a passionate &lt;strong&gt;Software Engineer&lt;/strong&gt; with experience in building scalable web applications, machine learning models, and REST APIs. I enjoy creating solutions that solve real-world problems using a combination of data analysis, cloud technologies, and modern development practices.&lt;/p&gt;
 &lt;hr&gt;

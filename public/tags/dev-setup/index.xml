@@ -2,21 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Dev Setup on Portfolio</title>
-    <link>https://abhishekdp.com/tags/dev-setup/</link>
+    <link>http://localhost:1313/tags/dev-setup/</link>
     <description>Recent content in Dev Setup on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
     <lastBuildDate>Mon, 02 Dec 2024 06:14:57 -0700</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/tags/dev-setup/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/dev-setup/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Why Nix is Awesome!</title>
-      <link>https://abhishekdp.com/posts/first/</link>
+      <link>http://localhost:1313/posts/nix-package-manager/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/first/</guid>
-      <description>&lt;h1 id=&#34;the-universal-package-manager-&#34;&gt;The Universal Package Manager 🌟&lt;/h1&gt;
-&lt;p&gt;Nix is a powerful tool designed to revolutionize package management and system configuration. With its declarative approach, robust reproducibility, and ability to handle complex dependency trees, Nix has gained a reputation as one of the most innovative tools for developers, DevOps professionals, and software enthusiasts alike.&lt;/p&gt;
-&lt;h2 id=&#34;introduction-to-nix&#34;&gt;Introduction to Nix&lt;/h2&gt;
-&lt;p&gt;Nix is an advanced package manager that takes a &lt;strong&gt;declarative and reproducible approach&lt;/strong&gt; to managing software. Unlike traditional package managers, Nix ensures that your system remains consistent and isolated, making it easier to reproduce builds across different environments. However, Nix comes with a steep learning curve, requiring time and effort to fully grasp its concepts and capabilities, particularly for those new to declarative configurations and functional programming paradigms.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/nix-package-manager/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;        *           *           *
+      *   *       *   *       *   *
+     *     *     *     *     *     *
+      *   *       *   *       *   *
+        *    ❄    *    ❄    *    ❄
+       *   *       *   *       *   *
+      *     *     *     *     *     *
+       *   *       *   *       *   *
+         *           *           *
+
+    NIX: Reproducible, Declarative, Pure
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;the-universal-package-manager-&#34;&gt;The Universal Package Manager 🌟&lt;/h1&gt;
+&lt;p&gt;Nix is a powerful tool designed to revolutionize package management and system configuration. With its declarative approach, robust reproducibility, and ability to handle complex dependency trees, Nix has gained a reputation as one of the most innovative tools for developers, DevOps professionals, and software enthusiasts alike.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

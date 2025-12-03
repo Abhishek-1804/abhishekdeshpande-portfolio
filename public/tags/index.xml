@@ -2,178 +2,206 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Portfolio</title>
-    <link>https://abhishekdp.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Nov 2025 15:23:14 +0530</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Dec 2025 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cli Tools</title>
+      <link>http://localhost:1313/tags/cli-tools/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/cli-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Command Line</title>
+      <link>http://localhost:1313/tags/command-line/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/command-line/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Developer Tools</title>
-      <link>https://abhishekdp.com/tags/developer-tools/</link>
-      <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
-      <guid>https://abhishekdp.com/tags/developer-tools/</guid>
+      <link>http://localhost:1313/tags/developer-tools/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/developer-tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Productivity</title>
+      <link>http://localhost:1313/tags/productivity/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/productivity/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terminal</title>
+      <link>http://localhost:1313/tags/terminal/</link>
+      <pubDate>Tue, 02 Dec 2025 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/terminal/</guid>
       <description></description>
     </item>
     <item>
       <title>Open-Source Tools</title>
-      <link>https://abhishekdp.com/tags/open-source-tools/</link>
+      <link>http://localhost:1313/tags/open-source-tools/</link>
       <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
-      <guid>https://abhishekdp.com/tags/open-source-tools/</guid>
+      <guid>http://localhost:1313/tags/open-source-tools/</guid>
       <description></description>
     </item>
     <item>
       <title>Regex</title>
-      <link>https://abhishekdp.com/tags/regex/</link>
+      <link>http://localhost:1313/tags/regex/</link>
       <pubDate>Sat, 08 Nov 2025 15:23:14 +0530</pubDate>
-      <guid>https://abhishekdp.com/tags/regex/</guid>
+      <guid>http://localhost:1313/tags/regex/</guid>
       <description></description>
     </item>
     <item>
       <title>Best Practices</title>
-      <link>https://abhishekdp.com/tags/best-practices/</link>
+      <link>http://localhost:1313/tags/best-practices/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/best-practices/</guid>
+      <guid>http://localhost:1313/tags/best-practices/</guid>
       <description></description>
     </item>
     <item>
       <title>Clean Code</title>
-      <link>https://abhishekdp.com/tags/clean-code/</link>
+      <link>http://localhost:1313/tags/clean-code/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/clean-code/</guid>
+      <guid>http://localhost:1313/tags/clean-code/</guid>
       <description></description>
     </item>
     <item>
       <title>Design Patterns</title>
-      <link>https://abhishekdp.com/tags/design-patterns/</link>
+      <link>http://localhost:1313/tags/design-patterns/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/design-patterns/</guid>
+      <guid>http://localhost:1313/tags/design-patterns/</guid>
       <description></description>
     </item>
     <item>
       <title>OOPs</title>
-      <link>https://abhishekdp.com/tags/oops/</link>
+      <link>http://localhost:1313/tags/oops/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/oops/</guid>
+      <guid>http://localhost:1313/tags/oops/</guid>
       <description></description>
     </item>
     <item>
       <title>Software Development</title>
-      <link>https://abhishekdp.com/tags/software-development/</link>
+      <link>http://localhost:1313/tags/software-development/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/software-development/</guid>
+      <guid>http://localhost:1313/tags/software-development/</guid>
       <description></description>
     </item>
     <item>
       <title>Containers</title>
-      <link>https://abhishekdp.com/tags/containers/</link>
+      <link>http://localhost:1313/tags/containers/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/containers/</guid>
+      <guid>http://localhost:1313/tags/containers/</guid>
       <description></description>
     </item>
     <item>
       <title>DevOps</title>
-      <link>https://abhishekdp.com/tags/devops/</link>
+      <link>http://localhost:1313/tags/devops/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/devops/</guid>
+      <guid>http://localhost:1313/tags/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>https://abhishekdp.com/tags/docker/</link>
+      <link>http://localhost:1313/tags/docker/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/docker/</guid>
+      <guid>http://localhost:1313/tags/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>Virtualization</title>
-      <link>https://abhishekdp.com/tags/virtualization/</link>
+      <link>http://localhost:1313/tags/virtualization/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/virtualization/</guid>
+      <guid>http://localhost:1313/tags/virtualization/</guid>
       <description></description>
     </item>
     <item>
       <title>Dev Setup</title>
-      <link>https://abhishekdp.com/tags/dev-setup/</link>
+      <link>http://localhost:1313/tags/dev-setup/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/dev-setup/</guid>
+      <guid>http://localhost:1313/tags/dev-setup/</guid>
       <description></description>
     </item>
     <item>
       <title>Nix</title>
-      <link>https://abhishekdp.com/tags/nix/</link>
+      <link>http://localhost:1313/tags/nix/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/nix/</guid>
+      <guid>http://localhost:1313/tags/nix/</guid>
       <description></description>
     </item>
     <item>
       <title>Reproducible Builds</title>
-      <link>https://abhishekdp.com/tags/reproducible-builds/</link>
+      <link>http://localhost:1313/tags/reproducible-builds/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/reproducible-builds/</guid>
+      <guid>http://localhost:1313/tags/reproducible-builds/</guid>
       <description></description>
     </item>
     <item>
       <title>System Configuration</title>
-      <link>https://abhishekdp.com/tags/system-configuration/</link>
+      <link>http://localhost:1313/tags/system-configuration/</link>
       <pubDate>Mon, 02 Dec 2024 06:14:57 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/system-configuration/</guid>
+      <guid>http://localhost:1313/tags/system-configuration/</guid>
       <description></description>
     </item>
     <item>
       <title>About Me</title>
-      <link>https://abhishekdp.com/tags/about-me/</link>
+      <link>http://localhost:1313/tags/about-me/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/about-me/</guid>
+      <guid>http://localhost:1313/tags/about-me/</guid>
       <description></description>
     </item>
     <item>
       <title>Education</title>
-      <link>https://abhishekdp.com/tags/education/</link>
+      <link>http://localhost:1313/tags/education/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/education/</guid>
+      <guid>http://localhost:1313/tags/education/</guid>
       <description></description>
     </item>
     <item>
       <title>Personal Website</title>
-      <link>https://abhishekdp.com/tags/personal-website/</link>
+      <link>http://localhost:1313/tags/personal-website/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/personal-website/</guid>
+      <guid>http://localhost:1313/tags/personal-website/</guid>
       <description></description>
     </item>
     <item>
       <title>Portfolio</title>
-      <link>https://abhishekdp.com/tags/portfolio/</link>
+      <link>http://localhost:1313/tags/portfolio/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/portfolio/</guid>
+      <guid>http://localhost:1313/tags/portfolio/</guid>
       <description></description>
     </item>
     <item>
       <title>Profile</title>
-      <link>https://abhishekdp.com/tags/profile/</link>
+      <link>http://localhost:1313/tags/profile/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/profile/</guid>
+      <guid>http://localhost:1313/tags/profile/</guid>
       <description></description>
     </item>
     <item>
       <title>Projects</title>
-      <link>https://abhishekdp.com/tags/projects/</link>
+      <link>http://localhost:1313/tags/projects/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/projects/</guid>
+      <guid>http://localhost:1313/tags/projects/</guid>
       <description></description>
     </item>
     <item>
       <title>Skills</title>
-      <link>https://abhishekdp.com/tags/skills/</link>
+      <link>http://localhost:1313/tags/skills/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/skills/</guid>
+      <guid>http://localhost:1313/tags/skills/</guid>
       <description></description>
     </item>
     <item>
       <title>Work Experience</title>
-      <link>https://abhishekdp.com/tags/work-experience/</link>
+      <link>http://localhost:1313/tags/work-experience/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/tags/work-experience/</guid>
+      <guid>http://localhost:1313/tags/work-experience/</guid>
       <description></description>
     </item>
   </channel>

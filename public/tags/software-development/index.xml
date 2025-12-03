@@ -2,20 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Software Development on Portfolio</title>
-    <link>https://abhishekdp.com/tags/software-development/</link>
+    <link>http://localhost:1313/tags/software-development/</link>
     <description>Recent content in Software Development on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
     <lastBuildDate>Mon, 30 Dec 2024 19:26:41 -0700</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/tags/software-development/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/software-development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solid Understanding of SOLID Principles</title>
-      <link>https://abhishekdp.com/posts/third/</link>
+      <link>http://localhost:1313/posts/solid-principles/</link>
       <pubDate>Mon, 30 Dec 2024 19:26:41 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/third/</guid>
-      <description>&lt;p&gt;&lt;em&gt;Object-Oriented Programming (OOP) is a cornerstone of modern software development. To truly grasp advanced principles like SOLID, it’s essential to start with a strong understanding of OOP fundamentals. This post will walk you through OOP concepts and then dive into the SOLID principles with simple examples to solidify your understanding.&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id=&#34;understanding-object-oriented-programming-oop&#34;&gt;Understanding Object-Oriented Programming (OOP)&lt;/h2&gt;
-&lt;p&gt;Object-Oriented Programming revolves around the idea of representing real-world entities as objects. These objects encapsulate both data and behavior, making systems modular, reusable, and easier to maintain. Let’s break down the core principles of OOP.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/solid-principles/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;        ╔═══════════════════════════════╗
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ║  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ║
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ║  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ║
+        ║  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ║
+        ╚═══════════════════════════════╝
+
+     Building SOLID Foundations in Code
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Object-Oriented Programming (OOP) is a cornerstone of modern software development. To truly grasp advanced principles like SOLID, it’s essential to start with a strong understanding of OOP fundamentals. This post will walk you through OOP concepts and then dive into the SOLID principles with simple examples to solidify your understanding.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

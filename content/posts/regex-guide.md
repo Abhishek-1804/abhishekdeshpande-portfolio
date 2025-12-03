@@ -3,9 +3,18 @@ title: "Become a Regex expert in 4 minutes"
 date: 2025-11-08T15:23:14+05:30
 draft: false
 tags: ["regex", "developer tools", "open-source tools"]
-cover:
-  image: "posts/fourth/cover.jpeg"
 ---
+
+```
+    ┌─────────────────────────────────┐
+    │  /^[A-Z]\w+@\w+\.\w{2,}$/      │
+    │  ┌───┐ ┌──┐ ┌──┐ ┌──┐ ┌────┐  │
+    │  │ ^ │→│\w│→│ @ │→│\.│→│ $  │  │
+    │  └───┘ └──┘ └──┘ └──┘ └────┘  │
+    │                                 │
+    │  Pattern Matching Made Simple  │
+    └─────────────────────────────────┘
+```
 
 ## What is Regex
 

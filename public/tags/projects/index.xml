@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Projects on Portfolio</title>
-    <link>https://abhishekdp.com/tags/projects/</link>
+    <link>http://localhost:1313/tags/projects/</link>
     <description>Recent content in Projects on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
     <lastBuildDate>Sun, 01 Dec 2024 10:02:47 -0700</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
-      <link>https://abhishekdp.com/portfolio/</link>
+      <link>http://localhost:1313/portfolio/</link>
       <pubDate>Sun, 01 Dec 2024 10:02:47 -0700</pubDate>
-      <guid>https://abhishekdp.com/portfolio/</guid>
+      <guid>http://localhost:1313/portfolio/</guid>
       <description>&lt;h1 id=&#34;hi-im-abhishek-deshpande-&#34;&gt;Hi, I&amp;rsquo;m Abhishek Deshpande 👋&lt;/h1&gt;
 &lt;p&gt;I’m a passionate &lt;strong&gt;Software Engineer&lt;/strong&gt; with experience in building scalable web applications, machine learning models, and REST APIs. I enjoy creating solutions that solve real-world problems using a combination of data analysis, cloud technologies, and modern development practices.&lt;/p&gt;
 &lt;hr&gt;

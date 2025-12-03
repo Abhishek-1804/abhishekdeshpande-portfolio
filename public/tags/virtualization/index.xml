@@ -2,33 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Virtualization on Portfolio</title>
-    <link>https://abhishekdp.com/tags/virtualization/</link>
+    <link>http://localhost:1313/tags/virtualization/</link>
     <description>Recent content in Virtualization on Portfolio</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
     <lastBuildDate>Sun, 22 Dec 2024 10:50:03 -0700</lastBuildDate>
-    <atom:link href="https://abhishekdp.com/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring Docker: Essential Commands, Best Practices, and Cool Images</title>
-      <link>https://abhishekdp.com/posts/second/</link>
+      <link>http://localhost:1313/posts/docker-essentials/</link>
       <pubDate>Sun, 22 Dec 2024 10:50:03 -0700</pubDate>
-      <guid>https://abhishekdp.com/posts/second/</guid>
-      <description>&lt;h1 id=&#34;why-docker-unlocking-the-power-of-containerization-&#34;&gt;Why Docker: Unlocking the Power of Containerization 🚀&lt;/h1&gt;
-&lt;p&gt;Docker provides a fantastic way to quickly explore and use tools, services, or applications without the hassle of manual installation and dependency management. Here are some cool Docker images you can experiment with, along with instructions to get started.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;basic-docker-commands-to-know&#34;&gt;Basic Docker Commands to Know&lt;/h2&gt;
-&lt;p&gt;Before diving into specific images, here are some essential Docker commands every user should know:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;docker images&lt;/code&gt; – List all images on your system.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker ps -a&lt;/code&gt; – Show all containers, including stopped ones.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker volumes ls&lt;/code&gt; – View all Docker volumes.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker networks ls&lt;/code&gt; – List all Docker networks.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;cool-docker-images-to-try-out&#34;&gt;Cool Docker Images to Try Out&lt;/h2&gt;
-&lt;h3 id=&#34;1-linuxserverfoldingathome&#34;&gt;1. linuxserver/foldingathome&lt;/h3&gt;
-&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
-&lt;p&gt;The Folding@Home project lets you contribute to disease research, including cancer, Alzheimer’s, and COVID-19, by donating unused computational power. This Docker image provides an easy way to join the network. You can set the account name and machine name in the CLI or do it later. If you have an NVIDIA GPU, you can enable it for better performance.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/docker-essentials/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;                    ##         .
+              ## ## ##        ==
+           ## ## ## ## ##    ===
+       /&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;\___/ ===
+      {                       /  ===-
+       \______ O           __/
+         \    \         __/
+          \____\_______/
+
+
+       Docker: Build, Ship, Run
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;why-docker-unlocking-the-power-of-containerization-&#34;&gt;Why Docker: Unlocking the Power of Containerization 🚀&lt;/h1&gt;
+&lt;p&gt;Docker provides a fantastic way to quickly explore and use tools, services, or applications without the hassle of manual installation and dependency management. Here are some cool Docker images you can experiment with, along with instructions to get started.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
