@@ -1,0 +1,21 @@
+{
+  "name": "abhishekdp-flight-log",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Abhishek Deshpande's portfolio: a 3D flight built with three.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/build-blog.mjs",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "gray-matter": "4.0.3",
+    "highlight.js": "11.11.1",
+    "marked": "15.0.6",
+    "vite": "6.0.7"
+  }
+}
