@@ -45,6 +45,10 @@ The owner approved the direction from screenshots ("yes, keep polishing") and as
 4. **Trees** are plain spheres; a two-blob crown or a noise-displaced crown would read better at street level.
 5. localStorage keys are still `flightlog.*` (kept on purpose so earlier progress survives).
 
+## Small follow-up: run tests in CI
+
+`npm test` is not yet a step in `.github/workflows/deploy.yml`. Adding it is one line (`- run: npm test` before `- run: npm run build`), but it must be pushed over SSH or with a token that has the `workflow` scope: the GitHub CLI's HTTPS login is refused when a push edits a workflow file. On 2026-11-11 the owner's SSH agent (1Password) was not answering, so the site was pushed over HTTPS without that edit. Until then, run `npm test` locally before every push.
+
 ## Ideas not started
 
 - Rooftop idle variety (look around, stretch), wall-run or point-launch moves.
