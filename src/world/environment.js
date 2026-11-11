@@ -1,74 +1,38 @@
-// Sky, sun, ocean, clouds, stars and the time-of-day cycle.
+// Sky, sun, clouds, stars and the time-of-day cycle.
 import * as THREE from 'three';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
-import { Water } from 'three/examples/jsm/objects/Water.js';
 import { rng, lerp, fbm, canvasTexture } from './util.js';
 
-const SUN_AZIMUTH = 262; // low on the left as you take off, so the opening shot is side-lit
+const SUN_AZIMUTH = 264; // due west: the low sun shines straight down the east-west streets
 export const CLOUD_RANGE = 2600;
 
 // Each preset is a complete lighting mood; the cycle interpolates between them.
 export const TIMES = [
   {
     id: 'golden', label: 'Golden hour',
-    sunEl: 3.5, lightEl: 7, light: '#ffb07a', lightI: 2.8,
-    hemiSky: '#ffd2a8', hemiGround: '#25324a', hemiI: 1.0,
-    fog: '#d9a58a', fogDensity: 0.00042, exposure: 0.42, stars: 0,
-    cloudLight: '#ffd9b8', cloudShadow: '#8a6f86', water: '#0b2b3a',
+    sunEl: 4, lightEl: 10, light: '#ffab6e', lightI: 3.6,
+    hemiSky: '#a9b6e6', hemiGround: '#5a4a44', hemiI: 1.25,
+    fog: '#d8a88e', fogDensity: 0.00105, exposure: 0.5, stars: 0, lights: 0.3,
+    cloudLight: '#ffd9b8', cloudShadow: '#8a6f86', zenith: '#6f93cf', horizon: '#ffcf9e',
     turbidity: 9, rayleigh: 2.6,
   },
   {
-    id: 'day', label: 'Midday',
-    sunEl: 34, lightEl: 34, light: '#fff3df', lightI: 3.2,
-    hemiSky: '#cfe6ff', hemiGround: '#3c5b4c', hemiI: 1.1,
-    fog: '#b5cfe8', fogDensity: 0.00034, exposure: 0.36, stars: 0,
-    cloudLight: '#ffffff', cloudShadow: '#9fb2c8', water: '#063a52',
-    turbidity: 6, rayleigh: 1.4,
-  },
-  {
     id: 'night', label: 'Night',
-    sunEl: -16, lightEl: 32, light: '#8fb2ff', lightI: 0.85,
-    hemiSky: '#2b3d6e', hemiGround: '#04060c', hemiI: 0.75,
-    fog: '#070c1a', fogDensity: 0.0003, exposure: 0.62, stars: 1,
-    cloudLight: '#5f74a8', cloudShadow: '#101830', water: '#02101c',
+    sunEl: -16, lightEl: 38, light: '#8fb2ff', lightI: 0.7,
+    hemiSky: '#2b3d6e', hemiGround: '#0a0c14', hemiI: 0.8,
+    fog: '#0c1326', fogDensity: 0.0008, exposure: 0.8, stars: 1, lights: 1,
+    cloudLight: '#5f74a8', cloudShadow: '#101830', zenith: '#0a1430', horizon: '#1b2748',
     turbidity: 4, rayleigh: 0.6,
   },
+  {
+    id: 'day', label: 'Midday',
+    sunEl: 38, lightEl: 38, light: '#fff3df', lightI: 3.2,
+    hemiSky: '#cfe6ff', hemiGround: '#4a4f58', hemiI: 1.1,
+    fog: '#b9d0e6', fogDensity: 0.00075, exposure: 0.42, stars: 0, lights: 0,
+    cloudLight: '#ffffff', cloudShadow: '#9fb2c8', zenith: '#4f8fdc', horizon: '#cfe2f3',
+    turbidity: 6, rayleigh: 1.4,
+  },
 ];
-
-/** A seamlessly tiling normal map built from summed sine waves. */
-function waterNormals(size = 256) {
-  const rand = rng(7);
-  const waves = Array.from({ length: 34 }, () => {
-    const kx = Math.round((rand() * 2 - 1) * 11), ky = Math.round((rand() * 2 - 1) * 11);
-    const k = Math.hypot(kx, ky) || 1;
-    return { kx, ky, amp: 1 / k ** 1.15, phase: rand() * Math.PI * 2 };
-  });
-  const data = new Uint8Array(size * size * 4);
-  const TAU = Math.PI * 2;
-  for (let y = 0; y < size; y++) {
-    for (let x = 0; x < size; x++) {
-      let dx = 0, dy = 0;
-      for (const w of waves) {
-        const c = Math.cos(TAU * ((w.kx * x + w.ky * y) / size) + w.phase) * w.amp;
-        dx += c * w.kx; dy += c * w.ky;
-      }
-      const s = 0.11;
-      const n = new THREE.Vector3(-dx * s, -dy * s, 1).normalize();
-      const i = (y * size + x) * 4;
-      data[i] = (n.x * 0.5 + 0.5) * 255;
-      data[i + 1] = (n.y * 0.5 + 0.5) * 255;
-      data[i + 2] = (n.z * 0.5 + 0.5) * 255;
-      data[i + 3] = 255;
-    }
-  }
-  const tex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
-  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-  tex.magFilter = THREE.LinearFilter;
-  tex.minFilter = THREE.LinearMipmapLinearFilter;
-  tex.generateMipmaps = true;
-  tex.needsUpdate = true;
-  return tex;
-}
 
 /** Wispy cloud puff: fractal noise under a soft elliptical falloff. */
 function cloudTexture() {
@@ -99,8 +63,7 @@ function makeClouds(count) {
   let i = 0;
   for (let c = 0; c < count; c++) {
     const cx = (rand() * 2 - 1) * CLOUD_RANGE, cz = (rand() * 2 - 1) * CLOUD_RANGE;
-    // Most clouds sit above cruising height; a few hang low enough to fly through.
-    const cy = rand() < 0.22 ? 70 + rand() * 60 : 190 + rand() * 260;
+    const cy = 420 + rand() * 380; // well above the tallest towers
     const size = 70 + rand() * 120;
     for (let p = 0; p < puffs; p++, i++) {
       pos[i * 3] = cx + (rand() * 2 - 1) * size * 1.5;
@@ -191,16 +154,6 @@ export function createEnvironment(scene, renderer, quality) {
   const hemi = new THREE.HemisphereLight('#ffffff', '#222222', 1);
   scene.add(hemi);
 
-  const reflection = quality.low ? 256 : 512;
-  const water = new Water(new THREE.PlaneGeometry(20000, 20000), {
-    textureWidth: reflection, textureHeight: reflection,
-    waterNormals: waterNormals(), sunDirection: new THREE.Vector3(),
-    sunColor: 0xffffff, waterColor: 0x0b2b3a, distortionScale: 3.4, fog: true,
-  });
-  water.rotation.x = -Math.PI / 2;
-  water.material.uniforms.size.value = 0.7;
-  scene.add(water);
-
   const clouds = makeClouds(quality.low ? 34 : 70);
   scene.add(clouds);
   const stars = makeStars();
@@ -219,8 +172,8 @@ export function createEnvironment(scene, renderer, quality) {
   }
 
   // Current blended state, plus the preset we are heading to.
-  const numeric = ['sunEl', 'lightEl', 'lightI', 'hemiI', 'fogDensity', 'exposure', 'stars', 'turbidity', 'rayleigh'];
-  const colors = ['light', 'hemiSky', 'hemiGround', 'fog', 'cloudLight', 'cloudShadow', 'water'];
+  const numeric = ['sunEl', 'lightEl', 'lightI', 'hemiI', 'fogDensity', 'exposure', 'stars', 'lights', 'turbidity', 'rayleigh'];
+  const colors = ['light', 'hemiSky', 'hemiGround', 'fog', 'cloudLight', 'cloudShadow', 'zenith', 'horizon'];
   const state = {};
   let from = null, to = TIMES[0], blend = 1, index = 0, bakeTimer = 0;
   const sun = new THREE.Vector3(), lightDir = new THREE.Vector3();
@@ -238,9 +191,6 @@ export function createEnvironment(scene, renderer, quality) {
     skyU.sunPosition.value.copy(sun);
     skyU.turbidity.value = state.turbidity;
     skyU.rayleigh.value = state.rayleigh;
-    water.material.uniforms.sunDirection.value.copy(lightDir);
-    water.material.uniforms.sunColor.value.copy(state.light).multiplyScalar(0.9);
-    water.material.uniforms.waterColor.value.copy(state.water);
     sunLight.color.copy(state.light);
     sunLight.intensity = state.lightI;
     hemi.color.copy(state.hemiSky);
@@ -260,10 +210,10 @@ export function createEnvironment(scene, renderer, quality) {
   bakeEnvironment();
 
   return {
-    water, state, lightDir,
+    state, lightDir,
     get time() { return to; },
     /** 0 in daylight, 1 at night. Lets lamps and windows switch on. */
-    get night() { return state.stars; },
+    get night() { return state.lights; },
     nextTime() {
       index = (index + 1) % TIMES.length;
       from = { ...state, ...Object.fromEntries(colors.map((k) => [k, '#' + state[k].getHexString()])) };
@@ -272,7 +222,6 @@ export function createEnvironment(scene, renderer, quality) {
       return to;
     },
     update(dt, elapsed, camera) {
-      water.material.uniforms.time.value = elapsed * 0.55;
       clouds.material.uniforms.uTime.value = elapsed;
       stars.position.copy(camera.position);
       sunLight.target.position.copy(camera.position);

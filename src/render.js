@@ -1,4 +1,4 @@
-// Pure HTML-string renderers shared by the in-flight panels, the classic view,
+// Pure HTML-string renderers shared by the in-city panels, the classic view,
 // and the build step (which bakes the classic view into index.html for
 // search engines and no-JS visitors). No DOM access in this file.
 import * as c from './content.js';
@@ -109,7 +109,7 @@ const renderers = {
     <ul class="links">${c.profile.links.map((l) => `<li>${ext(l.url, l.label)}</li>`).join('')}</ul>`,
 };
 
-/** Body HTML for one section. `collected` (a Set) is only passed in flight. */
+/** Body HTML for one section. `collected` (a Set) is only passed in the 3D view. */
 export function renderSection(id, posts, collected) {
   return renderers[id] ? renderers[id](posts, collected) : '';
 }

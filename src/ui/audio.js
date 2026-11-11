@@ -1,4 +1,4 @@
-// Fully procedural sound: engine drone, wind, pickup chimes and gate whooshes.
+// Fully procedural sound: city hum, rushing wind, grapple shots, landings and pickup chimes.
 // Nothing is downloaded; everything is synthesised with Web Audio.
 const STORE_KEY = 'flightlog.sound';
 
@@ -27,7 +27,7 @@ export function createAudio() {
 
     engineFilter = ctx.createBiquadFilter();
     engineFilter.type = 'lowpass'; engineFilter.frequency.value = 340; engineFilter.Q.value = 2;
-    engineGain = ctx.createGain(); engineGain.gain.value = 0.05;
+    engineGain = ctx.createGain(); engineGain.gain.value = 0.012;
     engineA = ctx.createOscillator(); engineA.type = 'sawtooth'; engineA.frequency.value = 52;
     engineB = ctx.createOscillator(); engineB.type = 'square'; engineB.frequency.value = 78.5;
     const bGain = ctx.createGain(); bGain.gain.value = 0.35;
@@ -65,12 +65,11 @@ export function createAudio() {
     update(speed01) {
       if (!ctx || !enabled) return;
       const t = ctx.currentTime;
-      engineA.frequency.setTargetAtTime(48 + speed01 * 46, t, 0.2);
-      engineB.frequency.setTargetAtTime(72 + speed01 * 70, t, 0.2);
-      engineFilter.frequency.setTargetAtTime(280 + speed01 * 700, t, 0.2);
-      engineGain.gain.setTargetAtTime(0.045 + speed01 * 0.03, t, 0.2);
-      windGain.gain.setTargetAtTime(0.03 + speed01 * 0.13, t, 0.3);
-      windFilter.frequency.setTargetAtTime(500 + speed01 * 900, t, 0.3);
+      // A low, steady city hum; the wind does the talking as speed builds.
+      engineFilter.frequency.setTargetAtTime(160, t, 0.5);
+      engineGain.gain.setTargetAtTime(0.012, t, 0.5);
+      windGain.gain.setTargetAtTime(0.02 + speed01 * speed01 * 0.3, t, 0.15);
+      windFilter.frequency.setTargetAtTime(350 + speed01 * 1300, t, 0.15);
     },
     chime(step = 0) {
       if (!ctx || !enabled) return;
@@ -82,6 +81,30 @@ export function createAudio() {
       if (!ctx || !enabled) return;
       const t = ctx.currentTime;
       [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => tone(f, t + i * 0.11, 0.9, 'triangle', 0.12));
+    },
+    /** The grapple line firing. */
+    shot() {
+      if (!ctx || !enabled) return;
+      const t = ctx.currentTime;
+      const src = ctx.createBufferSource(); src.buffer = noiseBuffer();
+      const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 3;
+      f.frequency.setValueAtTime(3200, t); f.frequency.exponentialRampToValueAtTime(700, t + 0.16);
+      const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.32, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+      src.connect(f).connect(g).connect(master);
+      src.start(t); src.stop(t + 0.25);
+      const o = ctx.createOscillator(), og = ctx.createGain();
+      o.type = 'triangle'; o.frequency.setValueAtTime(1500, t); o.frequency.exponentialRampToValueAtTime(420, t + 0.12);
+      og.gain.setValueAtTime(0.05, t); og.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+      o.connect(og).connect(master); o.start(t); o.stop(t + 0.16);
+    },
+    /** Boots hitting a rooftop. */
+    thud() {
+      if (!ctx || !enabled) return;
+      const t = ctx.currentTime;
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.2);
+      g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+      o.connect(g).connect(master); o.start(t); o.stop(t + 0.32);
     },
     whoosh() {
       if (!ctx || !enabled) return;

@@ -1,11 +1,11 @@
 // Instrument readouts and the radar mini-map.
 const $ = (sel) => document.querySelector(sel);
 
-export function createHud(islands, orbs) {
+export function createHud(city, orbs) {
   const speedEl = $('#i-speed'), altEl = $('#i-alt'), hdgEl = $('#i-hdg'), tapeEl = $('#i-tape'), skillsEl = $('#i-skills');
   const radar = $('#radar');
   const g = radar.getContext('2d');
-  const RANGE = 1900;
+  const RANGE = 620;
   let size = 0;
 
   // Compass tape: letters every 45°, ticks every 15°.
@@ -30,12 +30,12 @@ export function createHud(islands, orbs) {
   let frame = 0;
   return {
     setSkills(n, total) { skillsEl.textContent = `${n}/${total}`; },
-    update(plane, target) {
-      const s = plane.state;
+    update(hero, target) {
+      const s = hero.state;
       const heading = ((((-s.yaw * 180) / Math.PI) % 360) + 360) % 360;
       if (frame++ % 3 === 0) {
-        speedEl.textContent = Math.round(s.speed * 2.1);
-        altEl.textContent = Math.round(s.pos.y * 9.5).toLocaleString('en-US');
+        speedEl.textContent = Math.round(s.speed * 2.237);
+        altEl.textContent = Math.round(s.pos.y * 3.281).toLocaleString('en-US');
         hdgEl.textContent = String(Math.round(heading) % 360).padStart(3, '0');
       }
       tapeEl.style.transform = `translateX(${-(heading + 360) * 4}px)`;
@@ -58,7 +58,7 @@ export function createHud(islands, orbs) {
         g.fillStyle = 'rgba(255,255,255,0.65)';
         g.fillRect(x - 1, y - 1, 2, 2);
       }
-      for (const isl of islands.list) {
+      for (const isl of city.sites) {
         let [x, y] = map(isl.x, isl.z);
         const d = Math.hypot(x, y), max = r - 9;
         if (d > max) { x *= max / d; y *= max / d; }

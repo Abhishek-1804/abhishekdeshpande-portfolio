@@ -1,10 +1,12 @@
 // Skill orbs: one collectible per skill in content.js, plus the burst on pickup.
 import * as THREE from 'three';
 import { allSkills, sections } from '../content.js';
+import { planRoute } from '../sim/layout.js';
+import { buildRoute } from '../sim/route.js';
 import { rng, glowTexture, textSprite } from './util.js';
 
 const STORE_KEY = 'flightlog.skills';
-const PICKUP = 10;
+const REACH = 6.5; // sideways distance at which a passing hero grabs an orb
 
 function loadCollected() {
   try { return new Set(JSON.parse(localStorage.getItem(STORE_KEY) || '[]').filter((s) => allSkills.includes(s))); }
@@ -14,32 +16,37 @@ function saveCollected(set) {
   try { localStorage.setItem(STORE_KEY, JSON.stringify([...set])); } catch { /* private mode */ }
 }
 
-export function createOrbs(scene, islands) {
+export function createOrbs(scene, city) {
   const rand = rng(2024);
   const collected = loadCollected();
-  const geo = new THREE.IcosahedronGeometry(2.1, 1);
+  const geo = new THREE.IcosahedronGeometry(1.5, 1);
   const palette = sections.map((s) => new THREE.Color(s.hue));
-  const skillsIsland = islands.byId('skills');
+
+  // Orbs sit along the streets between consecutive towers, off-centre, so a
+  // visitor touring the sections in order passes all of them and can drift to grab each.
+  const stops = ['home', ...sections.map((s) => s.id)].map((id) => city.site(id));
+  const legs = stops.slice(1).map((to, i) => buildRoute(planRoute(stops[i].access, to.access)));
+  const total = legs.reduce((sum, r) => sum + r.length - 140, 0);
+  const spots = [];
+  const p = new THREE.Vector3(), t = new THREE.Vector3();
+  allSkills.forEach((_, i) => {
+    let d = ((i + 0.5) / allSkills.length) * total;
+    const leg = legs.find((r) => (d < r.length - 140 ? true : ((d -= r.length - 140), false))) ?? legs[legs.length - 1];
+    const s = 70 + d, lat = (rand() < 0.5 ? -1 : 1) * (3 + rand() * 5);
+    leg.pointAt(s, p); leg.tangentAt(s, t);
+    spots.push([p.x - t.z * lat, 24 + rand() * 18, p.z + t.x * lat]);
+  });
 
   const orbs = allSkills.map((skill, i) => {
-    // About a third gather around the Skills island; the rest are scattered along the routes.
-    let x, z;
-    if (i % 3 === 0) {
-      const a = rand() * Math.PI * 2, d = 120 + rand() * 170;
-      x = skillsIsland.x + Math.cos(a) * d; z = skillsIsland.z + Math.sin(a) * d;
-    } else {
-      const a = rand() * Math.PI * 2, d = 180 + rand() * 1050;
-      x = Math.cos(a) * d; z = Math.sin(a) * d;
-    }
-    const y = Math.max(islands.groundAt(x, z) + 22, 26 + rand() * 70);
+    const [x, y, z] = spots[i];
     const color = palette[i % palette.length];
     const group = new THREE.Group();
     group.position.set(x, y, z);
     const core = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: color, emissiveIntensity: 2.2, roughness: 0.2, metalness: 0.3, flatShading: true }));
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), color, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
-    halo.scale.setScalar(16);
-    const label = textSprite(skill, { height: 3.2 });
-    label.position.y = 5.5;
+    halo.scale.setScalar(11);
+    const label = textSprite(skill, { height: 2.4 });
+    label.position.y = 4;
     group.add(core, halo, label);
     group.visible = !collected.has(skill);
     scene.add(group);
@@ -72,11 +79,13 @@ export function createOrbs(scene, islands) {
       let got = null;
       for (const o of orbs) {
         if (!o.group.visible) continue;
-        o.group.position.y = o.base + Math.sin(t * 1.5 + o.phase) * 2;
+        o.group.position.y = o.base + Math.sin(t * 1.5 + o.phase) * 1.2;
         o.core.rotation.set(t * 0.7 + o.phase, t + o.phase, 0);
-        const d2 = o.group.position.distanceToSquared(planePos);
-        o.label.visible = d2 < 260 * 260;
-        if (d2 < PICKUP * PICKUP) {
+        const dx = o.group.position.x - planePos.x, dz = o.group.position.z - planePos.z;
+        const flat = dx * dx + dz * dz;
+        o.label.visible = flat < 220 * 220;
+        // Swings rise and fall a lot, so height barely matters: line up sideways and it is yours.
+        if (flat < REACH * REACH && Math.abs(o.group.position.y - planePos.y) < 42) {
           o.group.visible = false;
           collected.add(o.skill);
           saveCollected(collected);

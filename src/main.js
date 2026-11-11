@@ -8,10 +8,10 @@ import posts from 'virtual:posts';
 import { sections } from './content.js';
 import { renderSection } from './render.js';
 import { createEnvironment } from './world/environment.js';
-import { createIslands, WORLD_RADIUS } from './world/islands.js';
-import { createPlane, SPEED } from './world/plane.js';
+import { createCity } from './world/city.js';
+import { createHero, TUNING } from './world/hero.js';
 import { createOrbs } from './world/orbs.js';
-import { createTitle, TITLE_POS } from './world/title.js';
+import { createTitle } from './world/title.js';
 import { createHud } from './ui/hud.js';
 import { createAudio } from './ui/audio.js';
 import { clamp, lerp, damp } from './world/util.js';
@@ -78,20 +78,20 @@ async function boot() {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.5, 12000);
-  camera.position.set(0, 120, 420);
+  const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.3, 12000);
 
-  const env = await check('Painting the sky and the ocean', () => createEnvironment(scene, renderer, quality));
-  const islands = await check('Raising eight islands', () => createIslands(scene));
-  const title = await check('Polishing the nameplate', () => createTitle(scene));
-  const plane = await check('Assembling the aircraft', () => createPlane(scene, islands.groundAt, WORLD_RADIUS));
-  const orbs = await check('Scattering skills across the map', () => createOrbs(scene, islands));
+  const env = await check('Lighting the sky', () => createEnvironment(scene, renderer, quality));
+  const city = await check('Raising the skyline', () => createCity(scene, quality));
+  const title = await check('Hanging the nameplate', () => createTitle(scene, city.site('home')));
+  const hero = await check('Suiting up', () => createHero(scene, city));
+  const orbs = await check('Scattering skills through the streets', () => createOrbs(scene, city));
 
-  const composer = await check('Warming up the engine', async () => {
+  let bloom;
+  const composer = await check('Testing the grapple line', async () => {
     const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: quality.low ? 0 : 4 });
     const comp = new EffectComposer(renderer, target);
     comp.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), quality.low ? 0.5 : 0.65, 0.55, 0.82);
+    bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), quality.low ? 0.3 : 0.38, 0.45, 1.0);
     comp.addPass(bloom);
     comp.addPass(new OutputPass());
     comp.setPixelRatio(renderer.getPixelRatio());
@@ -100,75 +100,91 @@ async function boot() {
     return comp;
   });
 
-  if (location.search.includes('debug')) Object.assign(window, { __flight: { scene, camera, renderer, env, plane, islands, orbs } });
+  if (location.search.includes('debug')) Object.assign(window, { __city: { scene, camera, renderer, env, city, hero, orbs, bloom } });
 
-  const hud = createHud(islands, orbs);
+  const hud = createHud(city, orbs);
   const audio = createAudio();
   hud.setSkills(orbs.collected.size, orbs.total);
 
   // ── App state ──────────────────────────────────────────────────────────────
   const app = {
-    mode: 'intro', // intro → flying
-    introBlend: 0,
-    panel: null, // id of open section
-    target: null, // island the autopilot is heading to
+    started: false,
+    panel: null, // id of the open section
     keys: new Set(),
-    pointer: { active: false, x: 0, y: 0, down: false },
+    pointer: { active: false, x: 0, down: false },
     touch: null, // { id, x0, y0, x, y }
     boostButton: false,
-    shake: 0,
+    cut: true, // snap the camera instead of gliding (first frame, and after a skip)
+    shift: 0, // how far the view is slid left to make room for the panel
   };
 
-  // ── Loader → take off ─────────────────────────────────────────────────────
-  const takeoff = $('#takeoff');
+  // ── Loader → start ─────────────────────────────────────────────────────────
+  const start = $('#takeoff');
   const soundToggle = $('#sound-toggle');
   soundToggle.checked = audio.enabled;
-  takeoff.disabled = false;
-  takeoff.textContent = 'Take off';
+  start.disabled = false;
+  start.textContent = 'Enter the city';
   $('#loader').classList.add('ready');
-  takeoff.focus({ preventScroll: true });
+  start.focus({ preventScroll: true });
 
-  takeoff.addEventListener('click', () => {
+  start.addEventListener('click', () => {
     audio.setEnabled(soundToggle.checked);
     audio.start();
     syncSoundButton();
     $('#loader').classList.add('gone');
     setTimeout(() => $('#loader').remove(), 1200);
     html.classList.add('flying');
-    plane.reset();
-    app.mode = 'flying';
+    app.started = true;
     const deep = location.hash.slice(1);
-    if (sections.some((s) => s.id === deep)) setTimeout(() => flyTo(deep), 1800);
+    if (sections.some((s) => s.id === deep)) setTimeout(() => travel(deep), 900);
     else showHint();
   });
 
   // ── Navigation & panels ────────────────────────────────────────────────────
   const nav = $('#nav');
   nav.innerHTML = sections
-    .map((s) => `<button type="button" data-go="${s.id}" style="--hue:${s.hue}"><span class="dot"></span>${s.title}</button>`)
+    .map((s, i) => `<button type="button" data-go="${s.id}" style="--hue:${s.hue}" title="Swing to ${s.title} (${i + 1})"><span class="dot"></span>${s.title}</button>`)
     .join('');
   nav.addEventListener('click', (e) => {
     const b = e.target.closest('[data-go]');
     if (!b) return;
     html.classList.remove('menu-open');
-    if (app.mode !== 'flying') return;
-    flyTo(b.dataset.go);
+    if (app.started) travel(b.dataset.go);
   });
   $('#menu').addEventListener('click', () => html.classList.toggle('menu-open'));
 
-  function flyTo(id) {
-    const isl = islands.byId(id);
+  /** Autopilot: send the hero to a section's tower, then open it. */
+  function travel(id) {
+    const site = city.site(id);
     closePanel();
-    app.target = isl;
-    isl.cooldown = 0;
     setActiveNav(id);
-    const pre = isl.gatePos.clone().addScaledVector(isl.approach, -150);
-    pre.y = isl.gatePos.y;
-    const through = isl.gatePos.clone().addScaledVector(isl.approach, 60);
-    const toGate = () => { plane.state.autopilot = { target: through, onArrive: () => openPanel(id) }; };
-    if (plane.state.pos.distanceTo(pre) < 80) toGate();
-    else plane.state.autopilot = { target: pre, onArrive: toGate };
-    toast(`Autopilot: ${isl.title}`, isl.hue);
+    const already = hero.state.site === site && !hero.travelling;
+    hero.goTo(site, () => openPanel(id));
+    if (!already) toast(`On the way to ${site.title}`, site.hue);
+    syncTravelUi();
+  }
+  function roam() {
+    if (!app.started) return;
+    closePanel();
+    setActiveNav(null);
+    hero.roam();
+    toast('Free roam: drift left or right to choose your turns', '#5ff2ff', 3600);
+    syncTravelUi();
+  }
+  function skip() {
+    if (!hero.travelling || hero.state.roam) return;
+    app.cut = true;
+    hero.skip();
+    syncTravelUi();
+  }
+  const skipBtn = $('#skip'), roamBtn = $('#btn-roam');
+  skipBtn.addEventListener('click', skip);
+  roamBtn.addEventListener('click', roam);
+  function syncTravelUi() {
+    const s = hero.state, heading = s.pending ?? s.dest;
+    skipBtn.classList.toggle('show', hero.travelling && !!heading && !s.roam);
+    roamBtn.setAttribute('aria-pressed', String(s.roam));
+    html.classList.toggle('travelling', hero.travelling);
   }
 
   function setActiveNav(id) {
@@ -178,8 +194,6 @@ async function boot() {
   const panel = $('#panel');
   function openPanel(id) {
     const s = sections.find((x) => x.id === id);
-    plane.state.autopilot = null;
-    app.target = null;
     app.panel = id;
     setActiveNav(id);
     panel.style.setProperty('--hue', s.hue);
@@ -191,27 +205,26 @@ async function boot() {
     panel.scrollTop = 0;
     requestAnimationFrame(() => html.classList.add('panel-open'));
     $('#panel-close').focus({ preventScroll: true });
-    audio.whoosh();
     history.replaceState(null, '', '#' + id);
+    syncTravelUi();
   }
   function closePanel() {
     if (!app.panel) return;
     app.panel = null;
-    setActiveNav(null);
     html.classList.remove('panel-open');
     setTimeout(() => { if (!app.panel) panel.hidden = true; }, 450);
     history.replaceState(null, '', ' ');
     canvas.focus({ preventScroll: true });
   }
-  $('#panel-close').addEventListener('click', closePanel);
+  $('#panel-close').addEventListener('click', () => { closePanel(); setActiveNav(null); });
 
   function updateSkillCount() {
     const el = $('[data-skill-count]');
     if (el) {
       const n = orbs.collected.size;
       el.textContent = n === orbs.total
-        ? `You collected all ${n} skills. Nice flying.`
-        : `You've collected ${n} of ${orbs.total} skills. Fly through the glowing orbs to collect the rest.`;
+        ? `You collected all ${n} skills. Nicely swung.`
+        : `You've collected ${n} of ${orbs.total} skills. They float along the streets between towers: drift into them as you swing past.`;
     }
   }
 
@@ -232,7 +245,15 @@ async function boot() {
     hint.classList.add('show');
     setTimeout(() => hint.classList.remove('show'), 9000);
   }
-  const proximity = $('#proximity');
+
+  // ── Hero events → sound and UI ─────────────────────────────────────────────
+  hero.on((name, data) => {
+    if (name === 'attach') audio.shot();
+    if (name === 'launch') audio.whoosh();
+    if (name === 'land') { audio.thud(); app.shake = 0.35; syncTravelUi(); }
+    if (name === 'reroute') syncTravelUi();
+    void data;
+  });
 
   // ── Corner buttons ─────────────────────────────────────────────────────────
   const soundBtn = $('#btn-sound');
@@ -252,80 +273,89 @@ async function boot() {
   addEventListener('keydown', (e) => {
     if (e.target.closest?.('input, textarea, dialog')) return;
     const k = e.key.toLowerCase();
-    if (k === 'escape') { if (!classic.hidden) showClassic(false); else closePanel(); return; }
-    if (!classic.hidden || e.metaKey || e.ctrlKey || e.altKey) return;
-    if (k === 'm') { soundBtn.click(); return; }
-    if (k === 't') { cycleTime(); return; }
+    if (k === 'escape') { if (!classic.hidden) showClassic(false); else { closePanel(); setActiveNav(null); } return; }
+    if (!classic.hidden || e.metaKey || e.ctrlKey || e.altKey || !app.started) return;
+    if (k === 'm') return soundBtn.click();
+    if (k === 't') return cycleTime();
+    if (k === 'f') return roam();
+    if (k === 'x') return skip();
     const n = parseInt(k, 10);
-    if (n >= 1 && n <= sections.length && app.mode === 'flying') { flyTo(sections[n - 1].id); return; }
-    if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' ', 'w', 'a', 's', 'd', 'shift'].includes(k)) {
+    if (n >= 1 && n <= sections.length) return travel(sections[n - 1].id);
+    if (['arrowleft', 'arrowright', ' ', 'a', 'd', 'shift'].includes(k)) {
       if (app.panel && e.target.closest?.('#panel')) return;
       app.keys.add(k);
       if (k.startsWith('arrow') || k === ' ') e.preventDefault();
-      plane.state.autopilot = null; app.target = null; setActiveNav(app.panel);
     }
   });
   addEventListener('keyup', (e) => app.keys.delete(e.key.toLowerCase()));
   addEventListener('blur', () => app.keys.clear());
 
-  // Mouse: the plane follows the cursor; holding the button boosts.
+  // Mouse: drift follows the cursor, holding the button boosts, clicking a tower sends the hero there.
+  const raycaster = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  let press = null;
+  function pickTower(e) {
+    ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    return raycaster.intersectObjects(city.pickables, false)[0]?.object.userData.site ?? null;
+  }
   canvas.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    app.pointer.active = true;
-    app.pointer.x = (e.clientX / innerWidth) * 2 - 1;
-    app.pointer.y = -((e.clientY / innerHeight) * 2 - 1);
+    if (e.pointerType === 'mouse') {
+      app.pointer.active = true;
+      app.pointer.x = (e.clientX / innerWidth) * 2 - 1;
+      if (!hero.travelling) canvas.style.cursor = pickTower(e) ? 'pointer' : '';
+      else canvas.style.cursor = '';
+    } else if (app.touch?.id === e.pointerId) { app.touch.x = e.clientX; app.touch.y = e.clientY; showStick(true); }
   });
   canvas.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') app.pointer.active = false; });
   canvas.addEventListener('pointerdown', (e) => {
+    press = { x: e.clientX, y: e.clientY, t: performance.now() };
     if (e.pointerType === 'mouse') app.pointer.down = true;
     else if (!app.touch) {
       app.touch = { id: e.pointerId, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY };
       canvas.setPointerCapture(e.pointerId);
-      showStick(true);
+      if (hero.travelling) showStick(true);
     }
   });
-  canvas.addEventListener('pointermove', (e) => {
-    if (app.touch?.id === e.pointerId) { app.touch.x = e.clientX; app.touch.y = e.clientY; showStick(true); }
-  });
-  const endTouch = (e) => {
+  const release = (e) => {
     if (e.pointerType === 'mouse') app.pointer.down = false;
     if (app.touch?.id === e.pointerId) { app.touch = null; showStick(false); }
+    // A quick tap or click (not a drag or a held boost) on a tower picks it.
+    if (e.type === 'pointerup' && press && app.started && performance.now() - press.t < 350 && Math.hypot(e.clientX - press.x, e.clientY - press.y) < 8) {
+      const id = pickTower(e);
+      if (id) travel(id);
+    }
+    press = null;
   };
-  canvas.addEventListener('pointerup', endTouch);
-  canvas.addEventListener('pointercancel', endTouch);
+  canvas.addEventListener('pointerup', release);
+  canvas.addEventListener('pointercancel', release);
 
   // Touch joystick (drawn wherever the thumb lands).
   const stick = $('#stick'), knob = $('#stick i');
   const STICK = 56;
   function showStick(on) {
-    stick.classList.toggle('on', on);
+    stick.classList.toggle('on', on && !!app.touch);
     if (!on || !app.touch) return;
     const t = app.touch;
-    let dx = t.x - t.x0, dy = t.y - t.y0;
-    const d = Math.hypot(dx, dy);
-    if (d > STICK) { dx *= STICK / d; dy *= STICK / d; }
+    const dx = clamp(t.x - t.x0, -STICK, STICK);
     stick.style.transform = `translate(${t.x0}px, ${t.y0}px)`;
-    knob.style.transform = `translate(${dx}px, ${dy}px)`;
-    plane.state.autopilot = null; app.target = null;
+    knob.style.transform = `translate(${dx}px, 0px)`;
   }
   const boostBtn = $('#boost');
   boostBtn.addEventListener('pointerdown', (e) => { e.preventDefault(); app.boostButton = true; boostBtn.classList.add('on'); });
   for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) boostBtn.addEventListener(ev, () => { app.boostButton = false; boostBtn.classList.remove('on'); });
 
+  const input = { x: 0, boost: false };
   function readInput() {
     const k = app.keys;
     let x = (k.has('arrowright') || k.has('d') ? 1 : 0) - (k.has('arrowleft') || k.has('a') ? 1 : 0);
-    let y = (k.has('arrowup') || k.has('w') ? 1 : 0) - (k.has('arrowdown') || k.has('s') ? 1 : 0);
-    if (app.touch) {
-      x = clamp((app.touch.x - app.touch.x0) / STICK, -1, 1);
-      y = clamp(-(app.touch.y - app.touch.y0) / STICK, -1, 1);
-    } else if (!x && !y && app.pointer.active && !app.panel) {
-      const dead = (v) => (Math.abs(v) < 0.1 ? 0 : (v - Math.sign(v) * 0.1) / 0.9);
-      x = dead(app.pointer.x) * 1.3;
-      y = dead(app.pointer.y + 0.12) * 1.4;
-      if (x || y) { plane.state.autopilot = null; app.target = null; }
+    if (app.touch) x = clamp((app.touch.x - app.touch.x0) / STICK, -1, 1);
+    else if (!x && app.pointer.active) {
+      const v = app.pointer.x;
+      x = Math.abs(v) < 0.12 ? 0 : (v - Math.sign(v) * 0.12) / 0.6;
     }
-    return { x: clamp(x, -1, 1), y: clamp(y, -1, 1), boost: k.has('shift') || k.has(' ') || app.pointer.down || app.boostButton };
+    input.x = clamp(x, -1, 1);
+    input.boost = k.has('shift') || k.has(' ') || app.pointer.down || app.boostButton;
+    return input;
   }
 
   // ── Resize ─────────────────────────────────────────────────────────────────
@@ -334,93 +364,95 @@ async function boot() {
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
     composer.setSize(innerWidth, innerHeight);
+    app.shiftApplied = null;
   }
   addEventListener('resize', resize);
 
+  // ── Automatic quality ──────────────────────────────────────────────────────
+  // If the device cannot hold ~40 fps, step the resolution down, then drop the
+  // glow pass. It only ever steps down, so it cannot flicker between levels.
+  const adapt = { on: !location.search.includes('noadapt'), time: 0, frames: 0, warmup: 3 };
+  function watchFrameRate(raw) {
+    if (!adapt.on || raw > 1.5) return; // a gap that long is a tab switch, not a slow frame
+    if ((adapt.warmup -= raw) > 0) return;
+    adapt.frames++; adapt.time += raw;
+    if (adapt.time < 2.5 && adapt.frames < 90) return; // judge every couple of seconds
+    const struggling = adapt.time / adapt.frames > 1 / 40;
+    adapt.frames = adapt.time = 0;
+    if (!struggling) return;
+    const ratio = renderer.getPixelRatio();
+    if (ratio > 0.8) {
+      const next = Math.max(0.75, ratio - 0.25);
+      renderer.setPixelRatio(next);
+      composer.setPixelRatio(next);
+      resize();
+    } else if (bloom.enabled) bloom.enabled = false;
+    else adapt.on = false; // nothing left to trade away
+  }
+
   // ── Main loop ──────────────────────────────────────────────────────────────
   const clock = new THREE.Clock();
-  const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), look = new THREE.Vector3();
-  const offset = new THREE.Vector3(), introPos = new THREE.Vector3(), introLook = new THREE.Vector3();
-  let elapsed = 0, lastProx = null;
+  const wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3(), look = new THREE.Vector3();
+  const off = new THREE.Vector3(0, -999, 0);
+  let elapsed = 0, wasTravelling = false;
 
   renderer.setAnimationLoop(() => {
-    const dt = Math.min(clock.getDelta(), 1 / 20);
+    const raw = clock.getDelta();
+    watchFrameRate(raw);
+    const dt = Math.min(raw, 1 / 20);
     elapsed += dt;
-    const s = plane.state;
+    const s = hero.state;
 
-    // Controls
-    let targetSpeed = SPEED.cruise;
-    if (app.mode === 'intro') {
-      s.input.x = 0.32; s.input.y = (70 - s.pos.y) * 0.04; // a lazy circle while the loader shows
-    } else if (app.panel) {
-      s.input.x = 0.4; s.input.y = (75 - s.pos.y) * 0.03; // orbit while reading
-      targetSpeed = SPEED.panel * 3;
-    } else {
-      const input = readInput();
-      s.input.x = input.x; s.input.y = input.y;
-      targetSpeed = input.boost ? SPEED.boost : s.autopilot ? SPEED.cruise * 1.6 : SPEED.cruise;
-    }
-    plane.update(dt, elapsed, targetSpeed);
+    hero.update(dt, elapsed, readInput());
+    if (hero.travelling !== wasTravelling) { wasTravelling = hero.travelling; syncTravelUi(); }
+    title.group.scale.setScalar(camera.aspect < 0.8 ? 0.42 : 1); // fit the name on a phone held upright
     title.update(elapsed, camera);
     env.update(dt, elapsed, camera);
+    city.update(dt, elapsed, env);
 
-    // Gates & orbs
-    const hit = islands.update(elapsed, dt, env.night, s.pos);
-    if (hit && app.mode === 'flying' && !app.panel) openPanel(hit.id);
-    if (app.mode === 'flying') {
-      const got = orbs.update(elapsed, dt, s.pos);
-      if (got) {
-        const n = orbs.collected.size;
-        hud.setSkills(n, orbs.total);
-        if (n === orbs.total) { audio.fanfare(); toast('All skills collected! You are a certified wingman.', '#5dffb0', 5000); }
-        else { audio.chime(n); toast(`+ ${got}  ·  ${n}/${orbs.total}`, '#5dffb0'); }
-        updateSkillCount();
-        for (const li of document.querySelectorAll(`[data-skill="${CSS.escape(got)}"]`)) li.classList.add('got');
-      }
-    } else orbs.update(elapsed, dt, new THREE.Vector3(0, -999, 0));
-
-    // "Fly through the ring" prompt when near a gate.
-    let near = null;
-    if (app.mode === 'flying' && !app.panel) {
-      for (const isl of islands.list) if (!isl.cooldown && s.pos.distanceTo(isl.gatePos) < 260) near = isl;
+    // Skill orbs can only be grabbed mid-swing.
+    const got = orbs.update(elapsed, dt, s.mode === 'travel' ? s.pos : off);
+    if (got) {
+      const n = orbs.collected.size;
+      hud.setSkills(n, orbs.total);
+      if (n === orbs.total) { audio.fanfare(); toast('All skills collected. The city is yours.', '#5dffb0', 5000); }
+      else { audio.chime(n); toast(`+ ${got}  ·  ${n}/${orbs.total}`, '#5dffb0'); }
+      updateSkillCount();
+      for (const li of document.querySelectorAll(`[data-skill="${CSS.escape(got)}"]`)) li.classList.add('got');
     }
-    if (near !== lastProx) {
-      lastProx = near;
-      proximity.classList.toggle('show', !!near);
-      if (near) { proximity.innerHTML = `Fly through the ring to open <b>${near.title}</b>`; proximity.style.setProperty('--hue', near.hue); }
-    }
-    $('#turnback').classList.toggle('show', s.turningBack && app.mode === 'flying');
 
-    // Camera: orbit the title during the intro, then a chase cam.
+    // Camera.
     const portrait = camera.aspect < 0.8;
-    const dist = portrait ? 25 : 18;
-    offset.set(0, (portrait ? 7.5 : 5.6) - s.pitch * 4, dist).applyAxisAngle(THREE.Object3D.DEFAULT_UP, s.yaw);
-    camPos.copy(s.pos).add(offset);
-    camLook.copy(s.pos).addScaledVector(s.forward, 20).y += 2;
-    if (app.panel && !portrait && innerWidth >= 900) {
-      // Slide the plane left so it is not hidden behind the panel.
-      const right = new THREE.Vector3(Math.cos(s.yaw), 0, -Math.sin(s.yaw));
-      camLook.addScaledVector(right, 9);
-      camPos.addScaledVector(right, 6);
+    hero.view(wantPos, wantLook, elapsed, portrait);
+    const free = window.__city?.freecam; // debug: park the camera anywhere
+    if (free) { wantPos.fromArray(free.pos); wantLook.fromArray(free.look); app.cut = true; }
+    if (app.cut) { camera.position.copy(wantPos); look.copy(wantLook); app.cut = false; }
+    else {
+      const rate = s.mode === 'travel' ? 7 : s.mode === 'idle' || s.mode === 'land' ? 2.6 : 11;
+      camera.position.lerp(wantPos, damp(rate, dt));
+      look.lerp(wantLook, damp(s.mode === 'idle' || s.mode === 'land' ? 4 : 12, dt));
     }
-    const a = reducedMotion ? 0.05 : elapsed * 0.06;
-    introPos.set(TITLE_POS.x + Math.sin(a) * 210, TITLE_POS.y + 25, TITLE_POS.z + Math.cos(a) * 210 + 60);
-    introLook.copy(TITLE_POS);
-    app.introBlend = app.mode === 'intro' ? 0 : Math.min(1, app.introBlend + dt / 2.6);
-    const b = app.introBlend * app.introBlend * (3 - 2 * app.introBlend);
-    const follow = damp(app.introBlend < 1 ? 3 : 5, dt);
-    camera.position.lerp(introPos.clone().lerp(camPos, b), app.mode === 'intro' ? 1 : follow);
-    look.lerp(introLook.clone().lerp(camLook, b), app.mode === 'intro' ? 1 : damp(8, dt));
     camera.lookAt(look);
-    if (app.mode === 'flying') camera.rotateZ(s.roll * -0.18);
+    if (s.mode === 'travel' && !reducedMotion) camera.rotateZ(clamp(-hero.traversal.lat * 0.012, -0.12, 0.12));
+    if (app.shake > 0) {
+      app.shake = Math.max(0, app.shake - dt * 1.6);
+      if (!reducedMotion) camera.position.y += Math.sin(elapsed * 60) * app.shake * 0.25;
+    }
+    const rush = clamp((s.speed - 30) / (TUNING.boost - 30), 0, 1);
+    camera.fov = lerp(camera.fov, (portrait ? 72 : 58) + (s.mode === 'travel' ? 6 + rush * 16 : 0), damp(3, dt));
 
-    const boosting = s.speed > SPEED.cruise * 1.25;
-    camera.fov = lerp(camera.fov, (portrait ? 70 : 62) + clamp((s.speed - SPEED.cruise) / 66, 0, 1) * 14, damp(3, dt));
+    // Slide the view left while a panel covers the right side of a wide screen.
+    const wide = !portrait && innerWidth >= 900;
+    app.shift = lerp(app.shift, app.panel && wide ? 1 : 0, damp(4, dt));
+    const px = Math.round(app.shift * Math.min(240, innerWidth * 0.18));
+    if (px !== app.shiftApplied) {
+      app.shiftApplied = px;
+      if (px) camera.setViewOffset(innerWidth, innerHeight, px, 0, innerWidth, innerHeight); else camera.clearViewOffset();
+    }
     camera.updateProjectionMatrix();
-    if (boosting && !reducedMotion) camera.position.add(new THREE.Vector3((Math.random() - 0.5) * 0.12, (Math.random() - 0.5) * 0.12, 0));
 
-    hud.update(plane, app.target);
-    audio.update(clamp((s.speed - 20) / (SPEED.boost - 20), 0, 1));
+    hud.update(hero, s.pending ?? s.dest);
+    audio.update(hero.travelling ? clamp(s.speed / TUNING.boost, 0, 1) : 0.05);
     composer.render(dt);
   });
   // requestAnimationFrame already pauses in background tabs; dt is clamped on return.

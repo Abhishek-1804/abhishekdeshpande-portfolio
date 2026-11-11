@@ -10,12 +10,10 @@ body { margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--font)
 a { color: var(--link); text-underline-offset: 3px; }
 ::selection { background: rgba(255,179,71,0.35); }
 
-/* A dusk sky with a paper plane crossing it. */
+/* A dusk sky with drifting stars. */
 .sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: radial-gradient(60% 40% at 80% 0%, rgba(255,150,100,0.18), transparent 70%); }
 .sky::before { content: ''; position: absolute; inset: -50%; background-image: radial-gradient(1px 1px at 20% 30%, #fff8, transparent), radial-gradient(1px 1px at 70% 20%, #fff6, transparent), radial-gradient(1.5px 1.5px at 40% 70%, #fff5, transparent), radial-gradient(1px 1px at 85% 60%, #fff7, transparent); background-size: 340px 340px; animation: drift 120s linear infinite; }
-.paper-plane { position: absolute; width: 34px; top: 18%; left: -60px; filter: drop-shadow(0 0 10px rgba(255,180,71,0.6)); animation: fly 26s linear infinite; }
 @keyframes drift { to { transform: translate(340px, 170px); } }
-@keyframes fly { 0% { transform: translate(0, 0) rotate(8deg); } 50% { transform: translate(55vw, 8vh) rotate(-4deg); } 100% { transform: translate(115vw, -4vh) rotate(6deg); } }
 
 .site-head { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px var(--gutter); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(11,20,36,0.6); border-bottom: 1px solid var(--line); }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 700; }
@@ -99,4 +97,4 @@ a { color: var(--link); text-underline-offset: 3px; }
   .pager .older { text-align: left; }
   .post-body pre.art { font-size: 0.62rem; justify-content: flex-start; }
 }
-@media (prefers-reduced-motion: reduce) { .paper-plane, .sky::before { animation: none; } .paper-plane { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sky::before { animation: none; } }

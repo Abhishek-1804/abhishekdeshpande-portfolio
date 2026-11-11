@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // ALL SITE TEXT LIVES HERE.
-// Edit this file to update the portfolio — the 3D world, the info panels and the
+// Edit this file to update the portfolio — the 3D city, the info panels and the
 // plain "classic" view are all generated from it. No 3D code needs to change.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ export const profile = {
 export const about = [
   "Hi, I'm Abhishek. I'm a software engineer with experience building scalable web applications, machine learning models and REST APIs.",
   'I enjoy creating solutions to real-world problems with a mix of data analysis, cloud technologies and modern development practices.',
-  'I studied aeronautical engineering before moving into computer science, which is why this portfolio is a flight.',
+  'I studied aeronautical engineering before moving into computer science, so I still like anything that moves through the air.',
 ];
 
 export const experience = [
@@ -110,7 +110,7 @@ export const education = [
   },
 ];
 
-// Every skill listed here becomes a collectible orb floating somewhere in the world.
+// Every skill listed here becomes a collectible orb floating somewhere in the city.
 export const skills = [
   { group: 'Programming', items: ['Python', 'SQL', 'JavaScript', 'TypeScript', 'HTML/CSS'] },
   { group: 'Web Development', items: ['React', 'Next.js', 'Node.js', 'Express', 'REST APIs'] },
@@ -126,8 +126,8 @@ export const skills = [
 export const blogIntro =
   "Tools I love (and sometimes hate), 'aha' moments, and random musings about all things tech.";
 
-// The islands, in the order they appear in the navigation.
-// `hue` tints the island's gate and beacon. `blurb` is the one-line label in the nav.
+// The section towers, in the order they appear in the navigation.
+// `hue` tints the tower's lights, sign and beacon. `blurb` is the one-line label in the nav.
 export const sections = [
   { id: 'about', title: 'About', blurb: 'Home base', hue: '#ffb347' },
   { id: 'experience', title: 'Experience', blurb: 'Where I have worked', hue: '#5ad1ff' },

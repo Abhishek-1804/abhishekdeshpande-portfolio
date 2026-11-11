@@ -85,13 +85,13 @@ ${fontLink}
 ${head}
 </head>
 <body>
-<div class="sky" aria-hidden="true"><svg class="paper-plane" viewBox="0 0 64 64"><path d="M4 30 60 6 44 58 32 40z" fill="#ffb347"/><path d="M32 40 60 6 24 36z" fill="#fff" opacity=".85"/></svg></div>
+<div class="sky" aria-hidden="true"></div>
 <header class="site-head">
-  <a class="brand" href="/"><span class="logo">AD</span><span>Flight&nbsp;Log</span></a>
+  <a class="brand" href="/"><span class="logo">AD</span><span>Skyline</span></a>
   <nav>
     <a href="/posts/">Blog</a>
     <a href="/tags/">Tags</a>
-    <a class="fly" href="/">✈ Fly the portfolio</a>
+    <a class="fly" href="/">Swing through the portfolio →</a>
   </nav>
 </header>
 <main class="wrap">
@@ -208,8 +208,8 @@ write('search/index.html', redirect('/posts/'));
 write('categories/index.html', redirect('/tags/'));
 
 write('404.html', layout({
-  title: `Lost at sea · ${profile.name}`, description: 'Page not found.', urlPath: '/404.html',
-  body: `<section class="lost"><p class="kicker">Error 404</p><h1>Lost at sea.</h1><p class="lead">This page drifted off the map. Let's get you back to the runway.</p><p><a class="btn" href="/">✈ Back to the flight</a> <a class="btn ghost" href="/posts/">Read the blog</a></p></section>`,
+  title: `Lost in the city · ${profile.name}`, description: 'Page not found.', urlPath: '/404.html',
+  body: `<section class="lost"><p class="kicker">Error 404</p><h1>Wrong rooftop.</h1><p class="lead">This page isn't on the map. Let's get you back downtown.</p><p><a class="btn" href="/">← Back to the city</a> <a class="btn ghost" href="/posts/">Read the blog</a></p></section>`,
 }));
 
 console.log(`blog: ${posts.length} posts, ${tags.size} tags written to dist/`);

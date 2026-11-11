@@ -1,13 +1,14 @@
 {
-  "name": "abhishekdp-flight-log",
+  "name": "abhishekdp-skyline",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
-  "description": "Abhishek Deshpande's portfolio: a 3D flight built with three.js",
+  "description": "Abhishek Deshpande's portfolio: swing through a procedural city, built with three.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/build-blog.mjs",
-    "preview": "vite preview --port 4173"
+    "preview": "vite preview --port 4173",
+    "test": "node --test tests/"
   },
   "dependencies": {
     "three": "0.170.0"

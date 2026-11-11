@@ -1,66 +1,8 @@
-// The eight islands: terrain, trees, a landmark per section, a gate and a beacon.
+// One rooftop showpiece per section, built from primitives (no model files).
+// Each builder returns { group, update(t, night) }.
 import * as THREE from 'three';
-import { sections, experience, projects } from '../content.js';
-import { rng, fbm, clamp, canvasTexture, glowTexture, textSprite } from './util.js';
-
-// Where each island sits (x, z), its radius, and how tall its mountain is.
-const LAYOUT = {
-  about: { x: 0, z: -620, r: 150, peak: 55 },
-  experience: { x: 660, z: -930, r: 190, peak: 70 },
-  projects: { x: 1080, z: -230, r: 165, peak: 60 },
-  skills: { x: 800, z: 520, r: 170, peak: 95 },
-  opensource: { x: 110, z: 940, r: 150, peak: 50 },
-  education: { x: -640, z: 720, r: 175, peak: 80 },
-  blog: { x: -1080, z: 40, r: 155, peak: 58 },
-  contact: { x: -660, z: -790, r: 150, peak: 66 },
-};
-export const WORLD_RADIUS = 1750;
-const BASE = 9; // height of the flat ground each landmark stands on
-const GATE_RADIUS = 15;
-
-const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
-
-function heightAt(isl, x, z) {
-  const d = Math.hypot(x, z) / isl.r;
-  if (d > 1.2) return -6;
-  const ang = Math.atan2(z, x);
-  const coast = 0.78 + 0.24 * fbm(Math.cos(ang) * 1.6 + 9, Math.sin(ang) * 1.6 + 9, isl.seed, 3);
-  const m = clamp(1 - d / coast, 0, 1);
-  const shape = m * m * (3 - 2 * m);
-  const n = fbm(x * 0.017 + isl.seed, z * 0.017, isl.seed, 5);
-  const mx = x - isl.mx, mz = z - isl.mz;
-  const mountain = Math.exp(-(mx * mx + mz * mz) / (2 * (isl.r * 0.27) ** 2));
-  let h = -3 + shape * (7 + n * 9) + mountain * Math.sqrt(shape) * isl.peak * (0.5 + n * 0.95);
-  const flat = smooth(0.3, 0.13, d);
-  return h + (BASE - h) * flat;
-}
-
-const SAND = new THREE.Color('#d9c59c'), GRASS = new THREE.Color('#5c8a3f'), FOREST = new THREE.Color('#36602f');
-const ROCK = new THREE.Color('#77706a'), SNOW = new THREE.Color('#f2f4f7');
-
-function buildTerrain(isl) {
-  const seg = 84;
-  const geo = new THREE.PlaneGeometry(isl.r * 2.3, isl.r * 2.3, seg, seg).rotateX(-Math.PI / 2);
-  const pos = geo.attributes.position;
-  for (let i = 0; i < pos.count; i++) pos.setY(i, heightAt(isl, pos.getX(i), pos.getZ(i)));
-  geo.computeVertexNormals();
-  const nor = geo.attributes.normal;
-  const col = new Float32Array(pos.count * 3);
-  const c = new THREE.Color();
-  for (let i = 0; i < pos.count; i++) {
-    const h = pos.getY(i), x = pos.getX(i), z = pos.getZ(i);
-    const steep = 1 - nor.getY(i);
-    const v = fbm(x * 0.06, z * 0.06, isl.seed + 40, 3);
-    c.copy(GRASS).lerp(FOREST, v);
-    c.lerp(SAND, smooth(3.2, 1.2, h));
-    c.lerp(ROCK, Math.max(smooth(0.22, 0.42, steep), smooth(isl.peak * 0.45, isl.peak * 0.7, h)));
-    if (isl.peak > 75) c.lerp(SNOW, smooth(isl.peak * 0.78, isl.peak * 0.92, h + v * 6));
-    c.multiplyScalar(0.86 + v * 0.28);
-    col.set([c.r, c.g, c.b], i * 3);
-  }
-  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0, envMapIntensity: 0.35 }));
-}
+import { experience, projects } from '../content.js';
+import { rng, canvasTexture, glowTexture, textSprite } from './util.js';
 
 // ── Landmarks ────────────────────────────────────────────────────────────────
 // Each returns { group, update(t, night) }. They are built from primitives so
@@ -83,7 +25,7 @@ function windowTexture(seed) {
   });
 }
 
-const landmarks = {
+export const landmarks = {
   about(hue) {
     const g = new THREE.Group();
     const stripes = canvasTexture(8, 64, (c) => {
@@ -242,113 +184,3 @@ const landmarks = {
   },
 };
 
-// ── Gate: the ring you fly through to open a section ─────────────────────────
-function buildGate(hue) {
-  const g = new THREE.Group();
-  const color = new THREE.Color(hue);
-  g.add(new THREE.Mesh(new THREE.TorusGeometry(GATE_RADIUS, 0.9, 14, 72), new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: color, emissiveIntensity: 2.6, roughness: 0.3 })));
-  const portal = new THREE.Mesh(
-    new THREE.CircleGeometry(GATE_RADIUS, 64),
-    new THREE.ShaderMaterial({
-      transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
-      uniforms: { uTime: { value: 0 }, uColor: { value: color } },
-      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-      fragmentShader: /* glsl */ `
-        uniform float uTime; uniform vec3 uColor; varying vec2 vUv;
-        void main() {
-          vec2 p = vUv * 2.0 - 1.0; float r = length(p), a = atan(p.y, p.x);
-          float swirl = 0.5 + 0.5 * sin(a * 5.0 + r * 9.0 - uTime * 2.2);
-          float rim = smoothstep(0.35, 1.0, r);
-          gl_FragColor = vec4(uColor, (rim * 0.5 + swirl * rim * 0.35) * smoothstep(1.0, 0.96, r));
-        }`,
-    })
-  );
-  g.add(portal);
-  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), color, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
-  halo.scale.setScalar(GATE_RADIUS * 5);
-  g.add(halo);
-  return { group: g, portal };
-}
-
-export function createIslands(scene) {
-  const islands = [];
-  const treeSpots = [];
-
-  sections.forEach((section, i) => {
-    const lay = LAYOUT[section.id];
-    const toOrigin = new THREE.Vector2(-lay.x, -lay.z).normalize();
-    // The mountain rises on the far side, leaving the approach from the centre clear.
-    const isl = { ...section, ...lay, seed: 100 + i * 31, mx: -toOrigin.x * lay.r * 0.42, mz: -toOrigin.y * lay.r * 0.42 };
-    const root = new THREE.Group();
-    root.position.set(lay.x, 0, lay.z);
-    root.add(buildTerrain(isl));
-
-    const landmark = landmarks[section.id](section.hue);
-    landmark.group.position.y = BASE;
-    landmark.group.rotation.y = Math.atan2(toOrigin.x, toOrigin.y);
-    root.add(landmark.group);
-
-    const gate = buildGate(section.hue);
-    const gatePos = new THREE.Vector3(lay.x + toOrigin.x * lay.r * 0.95, 42, lay.z + toOrigin.y * lay.r * 0.95);
-    gate.group.position.copy(gatePos);
-    gate.group.rotation.y = Math.atan2(toOrigin.x, toOrigin.y);
-    scene.add(gate.group);
-
-    const title = textSprite(section.title.toUpperCase(), { height: 15, weight: 700 });
-    title.position.set(0, isl.peak + 46, 0);
-    root.add(title);
-
-    const beacon = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 520, 8, 1, true), glowMat(section.hue, 0.22));
-    beacon.position.set(isl.mx, 260 + isl.peak * 0.5, isl.mz);
-    root.add(beacon);
-
-    const rand = rng(isl.seed);
-    for (let n = 0; n < 900 && treeSpots.length < (i + 1) * 130; n++) {
-      const x = (rand() * 2 - 1) * lay.r, z = (rand() * 2 - 1) * lay.r;
-      const h = heightAt(isl, x, z);
-      const flatZone = Math.hypot(x, z) < lay.r * 0.2;
-      if (h > 3.5 && h < isl.peak * 0.42 && !flatZone) treeSpots.push([lay.x + x, h, lay.z + z, 0.7 + rand() * 0.9, rand()]);
-    }
-
-    scene.add(root);
-    islands.push({ ...isl, landmark, gate, gatePos, approach: new THREE.Vector3(-toOrigin.x, 0, -toOrigin.y), cooldown: 0 });
-  });
-
-  // All trees share one instanced mesh.
-  const treeGeo = new THREE.ConeGeometry(2.2, 8, 7).translate(0, 4, 0);
-  const trees = new THREE.InstancedMesh(treeGeo, new THREE.MeshStandardMaterial({ roughness: 1, envMapIntensity: 0.2 }), treeSpots.length);
-  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), c = new THREE.Color();
-  treeSpots.forEach(([x, y, z, s, v], i) => {
-    m4.compose(new THREE.Vector3(x, y - 0.4, z), q, new THREE.Vector3(s, s * (0.9 + v * 0.5), s));
-    trees.setMatrixAt(i, m4);
-    trees.setColorAt(i, c.setHSL(0.3 + v * 0.06, 0.42, 0.17 + v * 0.1));
-  });
-  scene.add(trees);
-
-  return {
-    list: islands,
-    byId: (id) => islands.find((i) => i.id === id),
-    /** Terrain height under a world position (0 over open water). */
-    groundAt(x, z) {
-      for (const isl of islands) {
-        const dx = x - isl.x, dz = z - isl.z;
-        if (dx * dx + dz * dz < (isl.r * 1.2) ** 2) return Math.max(0, heightAt(isl, dx, dz));
-      }
-      return 0;
-    },
-    /** Animates landmarks; returns the island whose gate the plane just crossed, if any. */
-    update(t, dt, night, planePos) {
-      let hit = null;
-      for (const isl of islands) {
-        isl.landmark.update(t, night);
-        isl.gate.portal.material.uniforms.uTime.value = t;
-        isl.cooldown = Math.max(0, isl.cooldown - dt);
-        if (!isl.cooldown && planePos.distanceToSquared(isl.gatePos) < (GATE_RADIUS - 1.5) ** 2) {
-          isl.cooldown = 6;
-          hit = isl;
-        }
-      }
-      return hit;
-    },
-  };
-}
