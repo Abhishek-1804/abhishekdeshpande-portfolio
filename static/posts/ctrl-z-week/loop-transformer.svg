@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 260" width="820" height="260" role="img" aria-label="A normal transformer passes tokens through each layer once; a loop transformer sends them through the same layers twice">
+  <rect x="0" y="0" width="820" height="260" rx="14" fill="#1b1d27"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" fill="#d8dae3">
+    <text x="205" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#f5f5f5">Normal transformer</text>
+    <text x="615" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#f5f5f5">Loop transformer</text>
+    <line x1="410" y1="20" x2="410" y2="240" stroke="#3a3d4a" stroke-width="2"/>
+
+    <!-- left: stack of distinct layers -->
+    <g font-size="13" text-anchor="middle">
+      <rect x="135" y="56" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#c084fc"/>
+      <text x="205" y="75">layer N</text>
+      <text x="205" y="104" fill="#9ca0b0">⋮</text>
+      <rect x="135" y="114" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#38bdf8"/>
+      <text x="205" y="133">layer 2</text>
+      <rect x="135" y="152" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#a3e635"/>
+      <text x="205" y="171">layer 1</text>
+      <text x="205" y="212">tokens ↑ once</text>
+      <text x="205" y="232" fill="#9ca0b0">N layers = N weights</text>
+    </g>
+
+    <!-- right: same stack, looped -->
+    <g font-size="13" text-anchor="middle">
+      <rect x="545" y="56" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#c084fc"/>
+      <text x="615" y="75">layer N</text>
+      <text x="615" y="104" fill="#9ca0b0">⋮</text>
+      <rect x="545" y="114" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#38bdf8"/>
+      <text x="615" y="133">layer 2</text>
+      <rect x="545" y="152" width="140" height="28" rx="6" fill="#2b2f3d" stroke="#a3e635"/>
+      <text x="615" y="171">layer 1</text>
+      <path d="M 690 70 C 760 70, 760 166, 690 166" fill="none" stroke="#facc15" stroke-width="2.5"/>
+      <polygon points="690,166 700,160 700,172" fill="#facc15"/>
+      <text x="768" y="122" fill="#facc15" text-anchor="start">×2</text>
+      <text x="615" y="212">tokens ↑ twice</text>
+      <text x="615" y="232" fill="#9ca0b0">2N layers of compute, N weights</text>
+    </g>
+  </g>
+</svg>
