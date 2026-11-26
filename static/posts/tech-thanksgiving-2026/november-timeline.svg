@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320" role="img" aria-label="Timeline of November 2026 tech news">
+  <rect x="0" y="0" width="820" height="320" rx="14" fill="#1b1d27"/>
+  <text x="410" y="36" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" font-weight="700" fill="#f5f5f5">November 2026: the speedrun</text>
+  <!-- axis -->
+  <line x1="60" y1="170" x2="760" y2="170" stroke="#5c6070" stroke-width="3" stroke-linecap="round"/>
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#d8dae3">
+    <!-- Nov 1: above -->
+    <line x1="60" y1="170" x2="60" y2="118" stroke="#ef4444" stroke-width="2"/>
+    <circle cx="60" cy="170" r="8" fill="#ef4444"/>
+    <text x="50" y="76" font-weight="700" fill="#ef4444">Nov 1</text>
+    <text x="50" y="94">FBI: $6.3B Binance heist</text>
+    <text x="50" y="108" fill="#9ca0b0">was North Korea</text>
+
+    <!-- Nov 12: below -->
+    <line x1="368" y1="170" x2="368" y2="222" stroke="#f97316" stroke-width="2"/>
+    <circle cx="368" cy="170" r="8" fill="#f97316"/>
+    <text x="368" y="242" text-anchor="middle" font-weight="700" fill="#f97316">Nov 12</text>
+    <text x="368" y="260" text-anchor="middle">Rust 1.100</text>
+    <text x="368" y="276" text-anchor="middle" fill="#9ca0b0">the ! type ships</text>
+
+    <!-- Nov 13: above -->
+    <line x1="396" y1="170" x2="396" y2="118" stroke="#a3e635" stroke-width="2"/>
+    <circle cx="396" cy="170" r="8" fill="#a3e635"/>
+    <text x="396" y="76" text-anchor="middle" font-weight="700" fill="#a3e635">Nov 13</text>
+    <text x="396" y="94" text-anchor="middle">llama.cpp 1.0</text>
+    <text x="396" y="110" text-anchor="middle" fill="#9ca0b0">semver, finally</text>
+
+    <!-- Nov 17: below -->
+    <line x1="508" y1="170" x2="508" y2="222" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="508" cy="170" r="8" fill="#38bdf8"/>
+    <text x="508" y="242" text-anchor="middle" font-weight="700" fill="#38bdf8">Nov 17</text>
+    <text x="508" y="260" text-anchor="middle">GPT-6.2</text>
+    <text x="508" y="276" text-anchor="middle" fill="#9ca0b0">Astra + Sol</text>
+
+    <!-- Nov 19: above -->
+    <line x1="564" y1="170" x2="564" y2="118" stroke="#c084fc" stroke-width="2"/>
+    <circle cx="564" cy="170" r="10" fill="#c084fc"/>
+    <text x="580" y="76" text-anchor="middle" font-weight="700" fill="#c084fc">Nov 19 (busy!)</text>
+    <text x="580" y="94" text-anchor="middle">Postgres 19</text>
+    <text x="580" y="110" text-anchor="middle" fill="#9ca0b0">+ $ANT hits Nasdaq</text>
+
+    <!-- Nov 26: below -->
+    <line x1="760" y1="170" x2="760" y2="222" stroke="#facc15" stroke-width="2"/>
+    <circle cx="760" cy="170" r="8" fill="#facc15"/>
+    <text x="770" y="242" text-anchor="end" font-weight="700" fill="#facc15">Nov 26</text>
+    <text x="770" y="260" text-anchor="end">You, full of turkey,</text>
+    <text x="770" y="276" text-anchor="end" fill="#9ca0b0">reading this</text>
+  </g>
+  <text x="410" y="306" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" fill="#6b7080">abhishekdp.com</text>
+</svg>
