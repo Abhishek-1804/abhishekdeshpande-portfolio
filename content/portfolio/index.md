@@ -17,7 +17,7 @@ draft: false
 
 # Hi, I'm Abhishek Deshpande 👋
 
-I’m a passionate **Software Engineer** with experience in building scalable web applications, machine learning models, and REST APIs. I enjoy creating solutions that solve real-world problems using a combination of data analysis, cloud technologies, and modern development practices.
+I’m a passionate **Software Engineer** at **UiPath**, where I manage infrastructure and build DevOps tooling with Kubernetes, Docker, and Go. I also have experience building scalable web applications, machine learning models, and REST APIs. I enjoy creating solutions that solve real-world problems using a combination of data analysis, cloud technologies, and modern development practices.
 
 ---
 
@@ -27,12 +27,12 @@ Here's what I bring to the table:
 
 | **Category**          | **Technologies/Skills**                                                       |
 | --------------------- | ----------------------------------------------------------------------------- |
-| **Programming**       | Python, SQL, JavaScript, TypeScript, HTML/CSS                                 |
+| **Programming**       | Go (Golang), Python, SQL, JavaScript, TypeScript, HTML/CSS                    |
 | **Web Development**   | React, Next.js, Node.js, Express, REST APIs                                   |
 | **Data Analysis**     | Numpy, Pandas, Power BI, Excel                                                |
-| **Cloud & DevOps**    | Docker, AWS, Firebase, Linux, CI/CD                                           |
+| **Cloud & DevOps**    | Kubernetes, Kubebuilder, Docker, AWS, Firebase, Linux, CI/CD                  |
 | **Databases**         | PostgreSQL, MSSQL, MongoDB                                                    |
-| **Tooling & Testing** | Git, Pytest                                                                   |
+| **Tooling & Testing** | Git, Ginkgo, Pytest                                                           |
 | **Machine Learning**  | Deep Learning, Transfer Learning, OpenCV, Reinforcement Learning              |
 | **AI**                | LangChain, MCP (Model Context Protocol), RAG (Retrieval-Augmented Generation) |
 | **Others**            | Agile, SDLC (Software Development Life Cycle), Bash Scripting                 |
@@ -41,7 +41,15 @@ Here's what I bring to the table:
 
 ## Work Experience 💼
 
-## Software Development Engineer Intern
+### Software Engineer
+
+**UiPath** (December 2025 – Present) — Bellevue, USA
+
+- Manage the company's infrastructure, running and operating containerized services on **Kubernetes** and **Docker**.
+- Build DevOps tooling in **Go (Golang)**, including Kubernetes operators and controllers built with **Kubebuilder**.
+- Write unit and integration tests with the **Ginkgo** testing framework to keep infrastructure code reliable.
+
+### Software Development Engineer Intern
 
 **Amazon** (May 2025 – Aug 2025) — Seattle, USA
 
