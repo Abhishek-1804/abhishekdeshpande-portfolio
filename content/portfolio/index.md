@@ -61,21 +61,12 @@ Here's what I bring to the table:
 
 ### Data Analyst
 
-**Ganit Inc** (August 2022 – March 2023) - India
+**Ganit Inc** (February 2022 – March 2023) — India
 
-- Built **RESTful APIs** using Python and machine learning models to extract metadata from medical prescriptions with **92% accuracy**
-- Designed and maintained **Power BI dashboards** for tracking over 20 KPIs, improving operational efficiency by **22%** and driving an **18% revenue increase annually**
-- Automated workflows using **Bash scripting**, **Python**, and **AWS EC2** to refresh dashboards dynamically
-- Managed **code reviews and pull requests** in Git to ensure high-quality, maintainable code
-
-### Data Analyst Intern
-
-**Ganit Inc** (February 2022 – July 2022) - India
-
-- Reduced fraud analytics processing time by **40%** through optimized data workflows using **Pandas** and **Numpy**
-- Developed Python scripts to link related emails using **regex**, improving data linkage accuracy by **25%**
-- Automated error handling pipelines with Python, reducing manual investigation time by **50%**
-- Performed stress testing on an ELK-stack-based front-end tool to ensure robust performance
+- Built **RESTful APIs** in **Python** serving machine learning models that extracted metadata from medical prescriptions with **92% accuracy**
+- Automated data workflows with **Bash**, **Python**, and **AWS EC2**, including scheduled dashboard refreshes
+- Automated error-handling pipelines in Python, reducing manual investigation time by **50%**
+- Managed **code reviews and pull requests** in Git to keep code high-quality and maintainable
 
 ---
 
@@ -84,8 +75,8 @@ Here's what I bring to the table:
 | **Project**                                                                                         | **Technologies**                                                          | **Description**                                                                                                |
 | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | [**Notion Notes App**](https://github.com/Abhishek-1804/notion_notes_app)                           | Flask, Python, Nix, Docker, DigitalOcean, Traefik, Notion API, OpenAI API | A containerized app integrated with Notion API to manage notes using Siri Shortcuts, deployed on DigitalOcean. |
-| [**Deep Q-Learning Snake Game**](https://github.com/Abhishek-1804/SnakeAI)                          | Python, PyTorch, Reinforcement Learning                                   | An AI-based Snake game with Deep Q-Learning and a GUI to visualize performance in real-time.                   |
-| [**Cotton Disease Classification**](https://github.com/Abhishek-1804/Cotton_disease_classification) | Python, TensorFlow, Transfer Learning                                     | A transfer learning model achieving 96%-97% accuracy for cotton disease classification using CNNs.             |
+| [**Homelab**](https://github.com/Abhishek-1804/homelab) | k3s (Kubernetes), Terraform, AWS, Tailscale, mise, kind, 1Password | A single-node k3s cluster on a headless laptop, set up end to end from code. It runs an AI agent and monitoring apps, is reachable only over Tailscale with a deny-by-default firewall, and its setup is tested on EC2 servers created with Terraform. |
+| [**Email Optimizer**](https://github.com/Abhishek-1804/email-optimizer) | Next.js, React, TypeScript, IMAP, Google OAuth, Clerk, Drizzle, SQLite | A multi-account email client for bulk spam filtering. It connects several Gmail accounts over IMAP with OAuth (no passwords), groups mail by sender, and moves blocked senders' mail to a folder instead of deleting it. Refresh tokens are encrypted with AES-256-GCM. |
 
 ---
 
